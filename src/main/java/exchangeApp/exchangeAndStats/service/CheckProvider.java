@@ -1,5 +1,6 @@
 package exchangeApp.exchangeAndStats.service;
 
+import exchangeApp.exchangeAndStats.entity.Exchange;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,18 +14,22 @@ public class CheckProvider {
     private static final String UNKNOWN_CURRENCY = "Can't find such currency!";
     private static final String AMOUNT_LESS_THAN_ONE = "You must convert one or more pieces!";
 
-    public void ifEmptyOrNull(List list) {
+    public void ifEmptyOrNull(List<Exchange> list) {
         if (list == null || list.size() == 0) throw new IllegalArgumentException(NO_RECORDS_YET);
+    }
+
+    public void ifNull(Object object, String errMsg) {
+        if (object == null) throw new IllegalArgumentException(errMsg);
     }
 
     public void ifNull(Object object) {
         if (object == null) throw new IllegalArgumentException(NO_RECORDS_YET);
     }
 
-    public void validateExchange(String from, String to, double amount, Map<String, Double> rates) {
-        validateType(from, rates);
-        validateType(to, rates);
-        if (amount < 1) throw new IllegalArgumentException(AMOUNT_LESS_THAN_ONE);
+    public void validateExchange(Exchange exchange, Map<String, Double> rates) {
+        validateType(exchange.getFrom(), rates);
+        validateType(exchange.getTo(), rates);
+        if (exchange.getAmount() < 1) throw new IllegalArgumentException(AMOUNT_LESS_THAN_ONE);
     }
 
     public void validateType(String type, Map<String, Double> rates) {

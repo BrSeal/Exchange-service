@@ -1,27 +1,31 @@
 package exchangeApp.exchangeAndStats.service;
 
-import exchangeApp.exchangeAndStats.entity.DTO.ExchangeRequestDTO;
 import exchangeApp.exchangeAndStats.entity.DTO.ExchangeResultDTO;
 import exchangeApp.exchangeAndStats.entity.Exchange;
-import exchangeApp.exchangeAndStats.entity.ExchangeRate;
+import exchangeApp.exchangeAndStats.entity.ExternalApiResponse;
 import exchangeApp.exchangeAndStats.repository.ExchangeRepository;
-import exchangeApp.security.entity.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 @Service
+@Transactional
 public class ExchangeServiceImpl implements ExchangeService {
+
+    private final static String STANDARD_TYPE = "USD";
+
+    @Value("${externalServerErr}")
+    private String EXTERNAL_SERVER_ERR;
+
 
     @Value("${getRatesUrl}")
     private String GET_RATES_URL;
 
-    private String STANDARD_TYPE="USD";
+
 
     private final ExchangeRepository repository;
     private final CheckProvider check;
@@ -32,17 +36,18 @@ public class ExchangeServiceImpl implements ExchangeService {
     }
 
     @Override
-    public Map<String, Double> requestRatesFromExternalAPI(String type) {
-        if(type==null) type=STANDARD_TYPE;
+    public Map<String, Double> requestRatesFromExternalAPI(String base) {
+        if (base == null) base = STANDARD_TYPE;
 
-        RestTemplate template= new RestTemplate();
-        Map<String, Double> rates =template.getForObject(GET_RATES_URL, ExchangeRate.class)
+        Map<String, Double> rates = new RestTemplate().getForObject(GET_RATES_URL, ExternalApiResponse.class)
                 .getRates();
 
-        if(!type.equals(STANDARD_TYPE)) {
-            check.validateType(type, rates);
-            double rateToUsd = rates.get(type);
-            rates.forEach((k, v) -> rates.put(k, v / rateToUsd));
+        check.ifNull(rates, EXTERNAL_SERVER_ERR);
+
+        if (!base.equals(STANDARD_TYPE)) {
+            check.validateType(base, rates);
+            double rateToUsd = rates.get(base);
+            rates.forEach((k, v) -> rates.put(k, Math.ceil(v / rateToUsd * 1_000_000) / 1_000_000));
         }
         return rates;
     }
@@ -63,27 +68,23 @@ public class ExchangeServiceImpl implements ExchangeService {
 
     @Override
     public Exchange getById(int id) {
-        Exchange exchange = repository.findById(id).get();
+        Exchange exchange = repository.findById(id).orElseThrow();
         check.ifNull(exchange);
         return exchange;
     }
 
     @Override
-    @Transactional
-    public ExchangeResultDTO doExchange(ExchangeRequestDTO dto, User user) {
-        String from = dto.getFrom().toUpperCase();
-        String to = dto.getTo().toUpperCase();
-        double amount = dto.getAmount();
-        Map<String, Double> rates = requestRatesFromExternalAPI(from);
+    public ExchangeResultDTO doExchange(Exchange exchange) {
+        Map<String, Double> rates = requestRatesFromExternalAPI(exchange.getFrom());
 
-        check.validateExchange(from, to, amount, rates);
+        check.validateExchange(exchange, rates);
 
-        double rate=rates.get(to);
+        double rate = rates.get(exchange.getTo());
 
-        double resultingAmount = amount * rate;
+        double resultingAmount = exchange.getAmount() * rate;
 
-        Exchange result = new Exchange(0, user, new Date(), from, to, amount, rate);
-        int exchangeId = repository.save(result).getId();
+        int exchangeId = repository.save(exchange).getId();
+
         return new ExchangeResultDTO(exchangeId, resultingAmount);
     }
 }

@@ -1,13 +1,12 @@
 package exchangeApp.exchangeAndStats.entity;
 
+import exchangeApp.security.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import exchangeApp.security.entity.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
