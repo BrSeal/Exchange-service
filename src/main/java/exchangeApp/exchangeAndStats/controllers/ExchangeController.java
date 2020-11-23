@@ -24,7 +24,8 @@ public class ExchangeController {
 
     @GetMapping("/rates")
     public Map<String, Double> getRatesWithBase(String base) {
-        return exchangeService.requestRatesFromExternalAPI(base);
+        if(base==null) return exchangeService.getActualRates();
+        return exchangeService.getActualRates(base);
     }
 
     @PostMapping("/doExchange")

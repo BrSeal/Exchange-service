@@ -15,6 +15,6 @@ public class ExchangeRequestDTO {
     private String to;
 
     public Exchange toExchange() {
-        return new Exchange(0, username,new Date(), from, to, amount,0d);
+        return new Exchange(0, username,new Date(), from, to, amount, 0,null);
     }
 }

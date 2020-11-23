@@ -8,6 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ExchangeRepository extends CrudRepository<Exchange,Integer> {
-
     List<Exchange> findAllByUsername(String userId);
 }

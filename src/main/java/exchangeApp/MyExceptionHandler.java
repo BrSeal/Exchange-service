@@ -30,7 +30,7 @@ public class MyExceptionHandler {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    private String beautifyStackTrace(Throwable ex){
+    public static String beautifyStackTrace(Throwable ex){
         StringWriter stringWriter=new StringWriter();
         ex.printStackTrace(new PrintWriter(stringWriter));
         return ex.getMessage()+'\n'+stringWriter.toString();

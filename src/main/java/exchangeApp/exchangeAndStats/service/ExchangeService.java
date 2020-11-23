@@ -8,13 +8,9 @@ import java.util.Map;
 
 public interface ExchangeService {
 
-    Map<String, Double> requestRatesFromExternalAPI(String base);
+    Map<String, Double> getActualRates();
 
-    List<Exchange> getAll();
-
-    Exchange getById(int id);
+    Map<String, Double> getActualRates(String base);
 
     ExchangeResultDTO doExchange(Exchange exchange);
-
-    List<Exchange> findAllByUsername(String username);
 }

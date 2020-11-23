@@ -18,10 +18,6 @@ public class CheckProvider {
         if (list == null || list.size() == 0) throw new IllegalArgumentException(NO_RECORDS_YET);
     }
 
-    public void ifNull(Object object, String errMsg) {
-        if (object == null) throw new IllegalArgumentException(errMsg);
-    }
-
     public void ifNull(Object object) {
         if (object == null) throw new IllegalArgumentException(NO_RECORDS_YET);
     }

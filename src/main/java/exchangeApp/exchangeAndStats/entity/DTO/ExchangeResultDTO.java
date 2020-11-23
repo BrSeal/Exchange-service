@@ -12,7 +12,7 @@ public class ExchangeResultDTO {
 
     public ExchangeResultDTO(Exchange exchange){
         exchangeId = exchange.getId();
-        amount = exchange.getAmount()*exchange.getRate();
+        amount = exchange.getResultingAmount();
     }
 
     public ExchangeResultDTO(int exchangeId,double amount){
