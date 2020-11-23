@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,7 +15,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Rate {
+public class Rates {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
@@ -23,5 +24,6 @@ public class Rate {
     Date date;
 
     @Column(name = "rates_json")
+    @Type(type = "text")
     String rates;
 }

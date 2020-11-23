@@ -13,6 +13,7 @@ public class CheckProvider {
     private static final String CURRENCY_NAME_FORMAT_ERROR = "Currency name must contain only 3 letters!";
     private static final String UNKNOWN_CURRENCY = "Can't find such currency!";
     private static final String AMOUNT_LESS_THAN_ONE = "You must convert one or more pieces!";
+    private static final String SAME_BASES = "You must convert one currency to another!";
 
     public void ifEmptyOrNull(List<Exchange> list) {
         if (list == null || list.size() == 0) throw new IllegalArgumentException(NO_RECORDS_YET);
@@ -25,6 +26,7 @@ public class CheckProvider {
     public void validateExchange(Exchange exchange, Map<String, Double> rates) {
         validateType(exchange.getFrom(), rates);
         validateType(exchange.getTo(), rates);
+        if(exchange.getFrom().equals(exchange.getTo())) throw new IllegalArgumentException(SAME_BASES);
         if (exchange.getAmount() < 1) throw new IllegalArgumentException(AMOUNT_LESS_THAN_ONE);
     }
 

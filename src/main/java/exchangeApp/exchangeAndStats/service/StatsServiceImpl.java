@@ -9,12 +9,18 @@ import java.util.List;
 
 @Service
 @Transactional
-public class StatsServiceImpl implements StatsService{
+public class StatsServiceImpl implements StatsService {
+
     private final ExchangeRepository exchangeRepository;
+    private final ExchangeRatingService exchangeRatingService;
     private final CheckProvider check;
 
-    public StatsServiceImpl(ExchangeRepository exchangeRepository, CheckProvider check) {
+
+    private final String CURRENCY_RATINGS_QUERY = "SELECT convert_from, convert_to, COUNT(*) AS occurency FROM exchanges GROUP BY convert_from, convert_to ORDER BY occurency DESC";
+
+    public StatsServiceImpl(ExchangeRepository exchangeRepository, ExchangeRatingService exchangeRatingService, CheckProvider check) {
         this.exchangeRepository = exchangeRepository;
+        this.exchangeRatingService = exchangeRatingService;
         this.check = check;
     }
 
@@ -42,14 +48,9 @@ public class StatsServiceImpl implements StatsService{
         return null;
     }
 
-
-    //SELECT convert_from, convert_to ,COUNT(*) AS count
-    //FROM exchanges
-    //GROUP BY convert_from, convert_to
-    //ORDER BY count
-    //DESC
     @Override
     public List<String> getExchangeRating() {
+
         return null;
     }
 

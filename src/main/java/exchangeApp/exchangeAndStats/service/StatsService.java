@@ -1,6 +1,7 @@
 package exchangeApp.exchangeAndStats.service;
 
 import exchangeApp.exchangeAndStats.entity.Exchange;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 

@@ -3,7 +3,6 @@ package exchangeApp.exchangeAndStats.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -39,6 +38,6 @@ public class Exchange {
     private double resultingAmount;
 
     @ManyToOne
-    @JoinColumn(name = "rates_id", nullable = false)
-    private Rate rates;
+    @JoinColumn(name = "rates_id")
+    private Rates rates;
 }

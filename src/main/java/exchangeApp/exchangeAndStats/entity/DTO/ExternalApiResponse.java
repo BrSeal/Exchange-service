@@ -1,4 +1,4 @@
-package exchangeApp.exchangeAndStats.entity;
+package exchangeApp.exchangeAndStats.entity.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
