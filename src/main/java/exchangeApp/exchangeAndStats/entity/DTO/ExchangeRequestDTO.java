@@ -1,7 +1,5 @@
 package exchangeApp.exchangeAndStats.entity.DTO;
 
-
-import exchangeApp.security.entity.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import exchangeApp.exchangeAndStats.entity.Exchange;
@@ -11,14 +9,12 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 public class ExchangeRequestDTO {
-    private int userId;
+    private String username;
     private double amount;
     private String from;
     private String to;
 
     public Exchange toExchange() {
-       User user = new User();
-       user.setId(userId);
-        return new Exchange(0, user,new Date(), from, to, amount,0d);
+        return new Exchange(0, username,new Date(), from, to, amount,0d);
     }
 }

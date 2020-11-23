@@ -1,6 +1,5 @@
 package exchangeApp.exchangeAndStats.entity;
 
-import exchangeApp.security.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,9 +18,8 @@ public class Exchange {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @Column(name = "username", nullable = false)
+    private String username;
 
     @Column(name = "operation_date", nullable = false)
     private Date operationDate;

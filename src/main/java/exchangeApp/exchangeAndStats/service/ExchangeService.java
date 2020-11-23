@@ -16,5 +16,5 @@ public interface ExchangeService {
 
     ExchangeResultDTO doExchange(Exchange exchange);
 
-    List<Exchange> findAllByUserId(int id);
+    List<Exchange> findAllByUsername(String username);
 }

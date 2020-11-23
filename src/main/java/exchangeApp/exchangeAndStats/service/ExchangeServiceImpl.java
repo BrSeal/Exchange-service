@@ -12,6 +12,11 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 import java.util.Map;
 
+
+//TODO cash actual rates in local field
+//TODO record actual rates to DB in Rate: int id, Date date, String rates_json
+//TODO bind actual rates with exchange
+
 @Service
 @Transactional
 public class ExchangeServiceImpl implements ExchangeService {
@@ -60,8 +65,8 @@ public class ExchangeServiceImpl implements ExchangeService {
     }
 
     @Override
-    public List<Exchange> findAllByUserId(int id) {
-        List<Exchange> result = repository.findAllByUserId(id);
+    public List<Exchange> findAllByUsername(String username) {
+        List<Exchange> result = repository.findAllByUsername(username);
         check.ifEmptyOrNull(result);
         return result;
     }
@@ -83,6 +88,7 @@ public class ExchangeServiceImpl implements ExchangeService {
 
         double resultingAmount = exchange.getAmount() * rate;
 
+        exchange.setRate(rate);
         int exchangeId = repository.save(exchange).getId();
 
         return new ExchangeResultDTO(exchangeId, resultingAmount);
