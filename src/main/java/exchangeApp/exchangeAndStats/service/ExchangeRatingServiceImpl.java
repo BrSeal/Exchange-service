@@ -2,7 +2,6 @@ package exchangeApp.exchangeAndStats.service;
 
 import exchangeApp.exchangeAndStats.entity.ExchangeRating;
 import exchangeApp.exchangeAndStats.repository.ExchangeRatingRepository;
-import net.bytebuddy.TypeCache;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +31,6 @@ public class ExchangeRatingServiceImpl implements ExchangeRatingService{
 
     @Override
     public List<ExchangeRating> getRating() {
-        return repository.findBySOrderByFrequency();
+        return repository.findByOrderByFrequency();
     }
 }

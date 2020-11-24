@@ -16,7 +16,7 @@ public class StatsServiceImpl implements StatsService {
     private final CheckProvider check;
 
 
-    private final String CURRENCY_RATINGS_QUERY = "SELECT convert_from, convert_to, COUNT(*) AS occurency FROM exchanges GROUP BY convert_from, convert_to ORDER BY occurency DESC";
+   // private final String CURRENCY_RATINGS_QUERY = "SELECT convert_from, convert_to, COUNT(*) AS occurency FROM exchanges GROUP BY convert_from, convert_to ORDER BY occurency DESC";
 
     public StatsServiceImpl(ExchangeRepository exchangeRepository, ExchangeRatingService exchangeRatingService, CheckProvider check) {
         this.exchangeRepository = exchangeRepository;

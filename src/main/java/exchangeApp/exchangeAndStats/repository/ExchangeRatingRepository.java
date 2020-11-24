@@ -10,5 +10,5 @@ import java.util.List;
 public interface ExchangeRatingRepository extends CrudRepository<ExchangeRating,Integer> {
     boolean existsAllByFromAndTo(String from,String to);
     ExchangeRating findByFromEqualsAndToEquals(String from,String to);
-    List<ExchangeRating> findBySOrderByFrequency();
+    List<ExchangeRating> findByOrderByFrequency();
 }

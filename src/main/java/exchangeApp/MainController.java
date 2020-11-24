@@ -10,12 +10,12 @@ public class MainController {
         return "home";
     }
 
-    @GetMapping("/exchangePage")
+    @GetMapping("/exchange")
     public String exchange(){
         return "exchange";
     }
 
-    @GetMapping("/statsPage")
+    @GetMapping("/stats")
     public String stats(){
         return "stats";
     }
