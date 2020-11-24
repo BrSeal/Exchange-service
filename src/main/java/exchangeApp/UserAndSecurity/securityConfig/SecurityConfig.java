@@ -16,14 +16,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/home", "/exchange/rates","/api/**", "/swagger-ui/**").permitAll()
+                .antMatchers("/",
+                        "/home",
+                        "/exchange/rates",
+                        "/api/**",
+                        "/swagger-ui/**",
+                        "/registration",
+                        "user/add").permitAll()
                 .antMatchers("/exchange/doExchange", "/stats/rating").hasAnyRole(USER, ADMIN)
                 .antMatchers("/stats/user/**",
                         "/stats/overall",
                         "/stats/moreThan/**",
                         "/stats/atOnesMoreThan/**").hasRole(ADMIN)
                 .and()
-                .formLogin().permitAll()
+                .formLogin()
                 .and()
                 .logout().permitAll()
                 .and()
@@ -31,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(WebSecurity web){
+    public void configure(WebSecurity web) {
         web.ignoring().antMatchers("/v2/api-docs",
                 "/configuration/ui",
                 "/swagger-resources/**",
