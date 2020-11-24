@@ -34,10 +34,21 @@ public class Exchange {
     @Min(1)
     private double amount;
 
+    @Column(name = "amount_to_convert_in_usd")
+    private double amountInUsd;
+
     @Column(name = "resulting_amount", nullable = false)
     private double resultingAmount;
 
     @ManyToOne
     @JoinColumn(name = "rates_id")
     private Rates rates;
+
+    public Exchange(String username, Date operationDate, String from, String to, double amount) {
+        this.username = username;
+        this.operationDate = operationDate;
+        this.from = from.toUpperCase();
+        this.to = to.toUpperCase();
+        this.amount = amount;
+    }
 }

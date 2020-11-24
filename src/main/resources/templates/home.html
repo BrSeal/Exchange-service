@@ -3,8 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
 </head>
 <body>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <form class="form-inline" method="post" action="/exchange/rates">
+        <input class="form-control mr-sm-2" type="text" placeholder="Base">
+        <button class="btn btn-success" type="submit">Get rates</button>
+    </form>
+</nav>
+
+
+
 <h1>Home page</h1>
+
+
 </body>
 </html>

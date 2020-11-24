@@ -22,6 +22,6 @@ public class MainController {
 
     @GetMapping("/api")
     public String api(){
-        return "swagger-ui";
+        return "redirect:swagger-ui/";
     }
 }

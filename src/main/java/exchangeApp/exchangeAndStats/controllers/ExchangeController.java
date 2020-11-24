@@ -4,6 +4,7 @@ import exchangeApp.exchangeAndStats.entity.DTO.ExchangeRequestDTO;
 import exchangeApp.exchangeAndStats.entity.DTO.ExchangeResultDTO;
 import exchangeApp.exchangeAndStats.service.ExchangeService;
 
+import exchangeApp.exchangeAndStats.service.RatesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,16 +17,18 @@ import java.util.Map;
 @RequestMapping("/exchange")
 public class ExchangeController {
     private final ExchangeService exchangeService;
+    private final RatesService ratesService;
 
     @Autowired
-    public ExchangeController(ExchangeService service) {
+    public ExchangeController(ExchangeService service, RatesService ratesService) {
         this.exchangeService = service;
+        this.ratesService = ratesService;
     }
 
-    @GetMapping("/rates")
+    @PostMapping("/rates")
     public Map<String, Double> getRatesWithBase(String base) {
-        if(base==null) return exchangeService.getActualRates();
-        return exchangeService.getActualRates(base);
+        if(base==null) return ratesService.getActualRates();
+        return ratesService.getActualRates(base);
     }
 
     @PostMapping("/doExchange")
