@@ -30,6 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/stats/atOnesMoreThan/**").hasRole(ADMIN)
                 .and()
                 .formLogin()
+                .loginPage("/login")
                 .and()
                 .logout().permitAll()
                 .and()

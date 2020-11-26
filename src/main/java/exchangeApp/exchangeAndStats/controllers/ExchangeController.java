@@ -6,7 +6,6 @@ import exchangeApp.exchangeAndStats.service.ExchangeService;
 
 import exchangeApp.exchangeAndStats.service.RatesService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,7 +26,7 @@ public class ExchangeController {
 
     @PostMapping("/rates")
     public Map<String, Double> getRatesWithBase(String base) {
-        if(base==null) return ratesService.getActualRates();
+        if(base.length()==0) return ratesService.getActualRates();
         return ratesService.getActualRates(base);
     }
 
