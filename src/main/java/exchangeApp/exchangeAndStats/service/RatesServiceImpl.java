@@ -11,9 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.constraints.NotNull;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Transactional
@@ -51,7 +49,9 @@ public class RatesServiceImpl implements RatesService {
         if (!base.equals(STANDARD_TYPE)) {
             check.validateType(base, ratesMap);
             double rateToUsd = ratesMap.get(base);
-            ratesMap.forEach((k, v) -> ratesMap.put(k, ceil(v / rateToUsd)));
+            Map<String, Double> ratesWithDifferentBase = new TreeMap<>();
+            ratesMap.forEach((k, v) -> ratesWithDifferentBase.put(k, ceil(v / rateToUsd)));
+            return ratesWithDifferentBase;
         }
         return ratesMap;
     }
