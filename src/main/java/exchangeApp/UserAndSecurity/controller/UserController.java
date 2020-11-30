@@ -3,7 +3,6 @@ package exchangeApp.UserAndSecurity.controller;
 import exchangeApp.UserAndSecurity.entity.DTO.NewUserDTO;
 import exchangeApp.UserAndSecurity.entity.DTO.UserInfoDTO;
 import exchangeApp.UserAndSecurity.service.UserService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
