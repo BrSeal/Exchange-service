@@ -38,6 +38,7 @@ public class RatesServiceImpl implements RatesService {
     }
 
     @Override
+    //todo вернуть {String base, Map map}
     public Map<String, Double> getActualRates(String base) {
         refreshRatesIfNeeded();
 

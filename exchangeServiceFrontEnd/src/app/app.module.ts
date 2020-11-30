@@ -6,16 +6,24 @@ import { ExchangeRatesComponent } from './components/exchange-rates/exchange-rat
 import { NavbarComponent } from './components/navbar/navbar.component';
 import {HttpClientModule} from "@angular/common/http";
 import {ExchangeRatesService} from "./services/exchange-rates.service";
+import { AppRoutingModule } from './app-routing.module';
+import { LoginComponent } from './components/login/login.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
     AppComponent,
     ExchangeRatesComponent,
-    NavbarComponent
+    NavbarComponent,
+    LoginComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [ExchangeRatesService],
   bootstrap: [AppComponent]

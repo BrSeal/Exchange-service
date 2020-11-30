@@ -14,8 +14,6 @@ public class AuthConfig extends GlobalAuthenticationConfigurerAdapter {
     public void init(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .inMemoryAuthentication()
-                .withUser("1").password("1").roles(USER)
-                .and()
-                .withUser("2").password("2").roles(USER, ADMIN);
+                .withUser("admin").password("admin").roles(USER,ADMIN);
     }
 }

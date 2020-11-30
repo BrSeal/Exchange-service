@@ -8,21 +8,26 @@ import {ExchangeRate} from "../../common/exchange-rate";
   styleUrls: ['./exchange-rates.component.css']
 })
 export class ExchangeRatesComponent implements OnInit {
-
   rates: ExchangeRate[];
+  currentBase: string;
 
   constructor(private ratesService: ExchangeRatesService) {
     this.rates = [];
   }
 
+  setCurrentBase(base:string ){
+    this.currentBase
+  }
+
   ngOnInit(): void {
     this.listRates();
-
   }
 
   listRates() {
-    this.ratesService.getExchangeRatesList().subscribe(data => {
-      Object.keys(data).forEach(k => this.rates.push(new ExchangeRate(k, data[k])))
-    });
+    this.ratesService.getExchangeRatesList().subscribe(
+      data => {this.currentBase=data.base
+      Object.keys(data.map).forEach(k => this.rates.push(new ExchangeRate(k, data[k])))
+    },error => {alert(error)}
+      );
   }
 }

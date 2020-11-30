@@ -2,7 +2,6 @@ package exchangeApp.UserAndSecurity.securityConfig;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
@@ -14,7 +13,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        http.cors()
+                .and()
                 .authorizeRequests()
                 .antMatchers("/",
                         "/home",
@@ -23,28 +23,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/swagger-ui/**",
                         "/registration",
                         "user/add").permitAll()
-                .antMatchers("/exchange/doExchange", "/stats/rating").hasAnyRole(USER, ADMIN)
-                .antMatchers("/stats/user/**",
-                        "/stats/overall",
+                .antMatchers("/exchange/doExchange", "/stats/rating", "/stats/user/**").hasAnyRole(USER, ADMIN)
+                .antMatchers("/stats/overall",
                         "/stats/moreThan/**",
                         "/stats/atOnesMoreThan/**").hasRole(ADMIN)
                 .and()
                 .formLogin()
-                .loginPage("/login")
                 .loginProcessingUrl("/authenticate")
                 .and()
                 .logout().permitAll()
                 .and()
                 .csrf().disable();
-    }
-
-    @Override
-    public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/v2/api-docs",
-                "/configuration/ui",
-                "/swagger-resources/**",
-                "/configuration/security",
-                "/swagger-ui.html",
-                "/webjars/**");
     }
 }
