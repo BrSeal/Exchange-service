@@ -4,15 +4,12 @@ import exchangeApp.UserAndSecurity.entity.DTO.NewUserDTO;
 import exchangeApp.UserAndSecurity.entity.DTO.UserInfoDTO;
 import exchangeApp.UserAndSecurity.service.UserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @CrossOrigin
-@Controller
+@RestController
 public class UserController {
     private final UserService service;
 
