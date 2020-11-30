@@ -1,14 +1,4 @@
-HELP.md
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
-
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
+# See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
 /dist

@@ -5,13 +5,11 @@ import exchangeApp.exchangeAndStats.entity.ExchangeRating;
 import exchangeApp.exchangeAndStats.service.ExchangeRatingService;
 import exchangeApp.exchangeAndStats.service.ExchangeService;
 import exchangeApp.UserAndSecurity.service.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/stats")
 public class StatsController {

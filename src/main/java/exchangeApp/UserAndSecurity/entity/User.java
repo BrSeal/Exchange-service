@@ -35,7 +35,6 @@ public class User {
             nullable = false)
     private boolean enabled;
 
-    @Column(name = "authorities")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Authority> authorities;
 }

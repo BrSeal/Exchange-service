@@ -20,6 +20,16 @@ public class MainController {
         return "stats";
     }
 
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @GetMapping("/registration")
+    public String registration() {
+        return "registration";
+    }
+
     @GetMapping("/api")
     public String api(){
         return "redirect:swagger-ui/";

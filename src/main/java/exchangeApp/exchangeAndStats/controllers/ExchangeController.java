@@ -6,12 +6,11 @@ import exchangeApp.exchangeAndStats.service.ExchangeService;
 
 import exchangeApp.exchangeAndStats.service.RatesService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/exchange")
 public class ExchangeController {
@@ -24,9 +23,8 @@ public class ExchangeController {
         this.ratesService = ratesService;
     }
 
-    @PostMapping("/rates")
-    public Map<String, Double> getRatesWithBase(String base) {
-        if(base.length()==0) return ratesService.getActualRates();
+    @GetMapping("/rates")
+    public Map<String, Double> getRatesWithBase(@RequestParam(required = false) String base) {
         return ratesService.getActualRates(base);
     }
 

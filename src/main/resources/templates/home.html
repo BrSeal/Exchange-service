@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en"
+      xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
@@ -18,10 +20,18 @@
     </form>
 </nav>
 
+<div sec:authorize="!isAuthenticated()">
+    Not authenticated content
+</div>
 
 
-<h1>Home page</h1>
+<div sec:authorize="isAuthenticated()">
+    This content is only shown to authenticated users.
+</div>
 
 
+<script th:src="@{/js/react.development.js}" crossorigin></script>
+<script th:src="@{/js/react-dom.development.js}" crossorigin></script>
+<script th:src="@{/js/mainPage.js}" crossorigin></script>
 </body>
 </html>

@@ -10,10 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
-import javax.validation.constraints.NotNull;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Transactional
@@ -41,19 +38,20 @@ public class RatesServiceImpl implements RatesService {
     }
 
     @Override
-    public Map<String, Double> getActualRates() {
-        return getActualRates(STANDARD_TYPE);
-    }
-
-    @Override
-    public Map<String, Double> getActualRates(@NotNull String base) {
+    public Map<String, Double> getActualRates(String base) {
         refreshRatesIfNeeded();
-        if (!base.equals(STANDARD_TYPE)) {
+
+        if (base==null|| base.length()==0||base.equals(STANDARD_TYPE)) base=STANDARD_TYPE;
+        else {
+            base=base.toUpperCase();
             check.validateType(base, ratesMap);
-            double rateToUsd = ratesMap.get(base);
-            ratesMap.forEach((k, v) -> ratesMap.put(k, ceil(v / rateToUsd)));
         }
-        return ratesMap;
+
+        double rateToUsd = ratesMap.get(base);
+        Map<String, Double> ratesByBase=new TreeMap<>();
+        ratesMap.forEach((k, v) -> ratesByBase.put(k, v / rateToUsd));
+
+        return reverseRates(ratesByBase);
     }
 
     private void refreshRatesIfNeeded() {
@@ -99,5 +97,9 @@ public class RatesServiceImpl implements RatesService {
         return currentRates;
     }
 
-
+    private Map<String, Double> reverseRates(Map<String, Double> rates){
+        Map<String, Double> result=new HashMap<>();
+        rates.forEach((k,v)->result.put(k,ceil(1/v)));
+        return result;
+    }
 }
