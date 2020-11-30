@@ -34,4 +34,9 @@ public class MainController {
     public String api(){
         return "redirect:swagger-ui/";
     }
+
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
 }

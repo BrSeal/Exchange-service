@@ -49,9 +49,7 @@ public class ExchangeServiceImpl implements ExchangeService {
         Map<String, Double> rates = ratesService.getActualRates(exchange.getFrom());
 
         check.validateExchange(exchange, rates);
-
         double rate = rates.get(exchange.getTo());
-
         double resultingAmount = exchange.getAmount() * rate;
 
         exchange.setRates(ratesService.getCurrentRate());
