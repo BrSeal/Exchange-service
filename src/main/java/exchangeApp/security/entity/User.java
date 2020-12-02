@@ -1,4 +1,4 @@
-package exchangeApp.UserAndSecurity.entity;
+package exchangeApp.security.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,10 +18,7 @@ import java.util.Set;
 @Table(name = "users")
 public class User {
     @Id
-    @Column(name = "username",
-            unique = true,
-            nullable = false,
-            length = 50)
+    @Column(name = "username")
     @Size(min = 3, max = 50)
     private String username;
 

@@ -1,6 +1,6 @@
-package exchangeApp.UserAndSecurity.entity.DTO;
+package exchangeApp.userPart.DTO;
 
-import exchangeApp.UserAndSecurity.entity.User;
+import exchangeApp.security.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class NewUserDTO {
+public class UserDTO {
     private String username;
     private String password;
 

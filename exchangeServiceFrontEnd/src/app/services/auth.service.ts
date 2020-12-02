@@ -9,6 +9,7 @@ import {Observable} from "rxjs";
 export class AuthService {
 
   private authUrl = "http://localhost:8080/authenticate";
+  private rolesUrl = "http://localhost:8080/user/roles";
   private logoutUrl = "http://localhost:8080/logout";
 
   private httpOptions = {
@@ -16,7 +17,7 @@ export class AuthService {
       'Content-Type': 'application/json'
     })
   }
-  private rolesUrl = "http://localhost:8080/user/roles";
+
   public roles: string[];
 
   constructor(private httpClient: HttpClient,
@@ -28,17 +29,19 @@ export class AuthService {
   }
 
   login({username, password}) {
-    this.httpClient.post(this.authUrl, {username, password}).subscribe(data => {
-      this.getRoles().subscribe(roles => {
-        this.roles = roles;
-        this.router.navigate(['/getRates'])
-          .then(r => this.httpOptions.headers = this.httpOptions.headers.set('Authorization', "data['_token']"));
-      }, error => console.log("Status:", error.status, "\nMessage: ", error.message))
-    });
+    this.httpClient.post(this.authUrl, {username, password})
+      .subscribe(data => {
+        this.getRoles().subscribe(roles => {
+          this.roles = roles;
+          this.router.navigate(['/getRates'])
+            .then(r => this.httpOptions.headers = this.httpOptions.headers.set('Authorization', "data['_token']"));
+        }, error => console.log("Status:", error.status, "\nMessage: ", error.message))
+      });
   }
 
   logout() {
     this.httpClient.post(this.logoutUrl, null, this.httpOptions);
+    this.roles = [];
     this.httpOptions.headers = this.httpOptions.headers.delete('Authorization');
   }
 

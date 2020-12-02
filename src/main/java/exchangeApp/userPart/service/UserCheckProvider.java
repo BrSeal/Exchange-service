@@ -1,7 +1,8 @@
-package exchangeApp.UserAndSecurity.service;
+package exchangeApp.userPart.service;
 
-import exchangeApp.UserAndSecurity.entity.DTO.NewUserDTO;
-import exchangeApp.UserAndSecurity.repository.UserRepository;
+import exchangeApp.security.DTO.SecurityUserDTO;
+import exchangeApp.userPart.DTO.UserDTO;
+import exchangeApp.security.repository.UserRepository;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,10 +20,10 @@ public class UserCheckProvider {
         this.repository = repository;
     }
 
-    public void validateNew(NewUserDTO user) {
+    public void validateNew(SecurityUserDTO user) {
         if(user==null) throw new IllegalArgumentException(NULL_USER);
         isValidNamePass(user.getUsername(),user.getPassword());
-        if(repository.existsByUsername(user.getUsername())) throw new IllegalArgumentException(ALREADY_EXISTS);
+        if(repository.existsById(user.getUsername())) throw new IllegalArgumentException(ALREADY_EXISTS);
     }
 
     private void isValidNamePass(String name, String password){

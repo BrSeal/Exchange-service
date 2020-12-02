@@ -13,12 +13,12 @@ export class ExchangeRatesService {
   constructor(private httpClient:HttpClient,
               private authService:AuthService) { }
 
-  getExchangeRatesList():Observable<MapWithBase>{
+  getExchangeRatesList(base:string):Observable<MapWithBase>{
    return  this.httpClient.get<MapWithBase>(this.baseUrl, this.authService.getHeaders());
   }
 }
 
 interface MapWithBase {
   base:string,
-  map:Map<string, number>
+  rates:Map<string, number>
 }

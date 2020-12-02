@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './components/login/login.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import {FormsModule} from "@angular/forms";
+import { RatesFormWithBaseComponent } from './rates-form-with-base/rates-form-with-base.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {FormsModule} from "@angular/forms";
     ExchangeRatesComponent,
     NavbarComponent,
     LoginComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    RatesFormWithBaseComponent
   ],
   imports: [
     BrowserModule,

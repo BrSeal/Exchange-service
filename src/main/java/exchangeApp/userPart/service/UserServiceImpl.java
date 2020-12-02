@@ -1,11 +1,11 @@
-package exchangeApp.UserAndSecurity.service;
+package exchangeApp.userPart.service;
 
-import exchangeApp.UserAndSecurity.entity.Authority;
-import exchangeApp.UserAndSecurity.entity.DTO.NewUserDTO;
-import exchangeApp.UserAndSecurity.entity.DTO.UserInfoDTO;
-import exchangeApp.UserAndSecurity.entity.Role;
-import exchangeApp.UserAndSecurity.entity.User;
-import exchangeApp.UserAndSecurity.repository.UserRepository;
+import exchangeApp.security.entity.Authority;
+import exchangeApp.userPart.DTO.UserDTO;
+import exchangeApp.userPart.DTO.UserInfoDTO;
+import exchangeApp.security.entity.Role;
+import exchangeApp.security.entity.User;
+import exchangeApp.security.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,12 +22,6 @@ public class UserServiceImpl implements UserService{
     public UserServiceImpl(UserRepository repository, UserCheckProvider check) {
         this.repository = repository;
         this.check = check;
-    }
-    public String add(NewUserDTO dto){
-        check.validateNew(dto);
-        User user=dto.toUser();
-        user.setAuthorities(Set.of(new Authority(0,user, Role.ROLE_USER)));
-        return repository.save(user).getUsername();
     }
 
     @Override

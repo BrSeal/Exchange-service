@@ -1,0 +1,8 @@
+<form>
+  <select [(ngModel)]="base">
+    <option *ngFor="let value of currencyNames" [value]="value" >
+      {{value}}
+    </option>
+    <input type="submit" name="Get rates" (click)="getRatesWithBase()">
+  </select>
+</form>

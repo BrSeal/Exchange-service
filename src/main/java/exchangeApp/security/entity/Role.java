@@ -1,4 +1,4 @@
-package exchangeApp.UserAndSecurity.entity;
+package exchangeApp.security.entity;
 
 public enum Role {
     ROLE_ADMIN,

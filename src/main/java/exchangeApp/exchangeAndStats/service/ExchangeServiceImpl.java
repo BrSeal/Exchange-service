@@ -46,7 +46,7 @@ public class ExchangeServiceImpl implements ExchangeService {
     @Override
     public ExchangeResultDTO doExchange(Exchange exchange) {
 
-        Map<String, Double> rates = ratesService.getActualRates(exchange.getFrom());
+        Map<String, Double> rates = ratesService.getActualRates(exchange.getFrom()).getRates();
 
         check.validateExchange(exchange, rates);
         double rate = rates.get(exchange.getTo());

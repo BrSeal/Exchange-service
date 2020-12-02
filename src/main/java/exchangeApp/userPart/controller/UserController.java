@@ -1,13 +1,12 @@
-package exchangeApp.UserAndSecurity.controller;
+package exchangeApp.userPart.controller;
 
-import exchangeApp.UserAndSecurity.entity.DTO.NewUserDTO;
-import exchangeApp.UserAndSecurity.entity.DTO.UserInfoDTO;
-import exchangeApp.UserAndSecurity.service.UserService;
+import exchangeApp.userPart.DTO.UserDTO;
+import exchangeApp.userPart.DTO.UserInfoDTO;
+import exchangeApp.userPart.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin
 @RestController
 public class UserController {
     private final UserService service;
@@ -24,10 +23,5 @@ public class UserController {
     @GetMapping("/stats/moreThan/{usd}")
     public List<UserInfoDTO> exchangedAtOnesMoreThan(@PathVariable double usd) {
         return service.getUsersTotalExchangedMoreThan(usd);
-    }
-
-    @PostMapping("/user/new")
-    public String addUser(NewUserDTO dto){
-       return service.add(dto);
     }
 }

@@ -1,4 +1,4 @@
-package exchangeApp.UserAndSecurity.entity;
+package exchangeApp.security.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

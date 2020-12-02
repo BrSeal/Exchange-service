@@ -2,6 +2,7 @@ package exchangeApp.exchangeAndStats.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import exchangeApp.exchangeAndStats.entity.DTO.CurrentRatesWithBaseDTO;
 import exchangeApp.exchangeAndStats.entity.DTO.ExternalApiResponse;
 import exchangeApp.exchangeAndStats.entity.Rates;
 import exchangeApp.exchangeAndStats.repository.RateRepository;
@@ -39,7 +40,7 @@ public class RatesServiceImpl implements RatesService {
 
     @Override
     //todo вернуть {String base, Map map}
-    public Map<String, Double> getActualRates(String base) {
+    public CurrentRatesWithBaseDTO getActualRates(String base) {
         refreshRatesIfNeeded();
 
         if (base==null|| base.length()==0||base.equals(STANDARD_TYPE)) base=STANDARD_TYPE;
@@ -49,10 +50,10 @@ public class RatesServiceImpl implements RatesService {
         }
 
         double rateToUsd = ratesMap.get(base);
-        Map<String, Double> ratesByBase=new TreeMap<>();
+        Map<String, Double> ratesByBase=new HashMap<>();
         ratesMap.forEach((k, v) -> ratesByBase.put(k, v / rateToUsd));
 
-        return reverseRates(ratesByBase);
+        return new CurrentRatesWithBaseDTO(base,ratesByBase);
     }
 
     private void refreshRatesIfNeeded() {
