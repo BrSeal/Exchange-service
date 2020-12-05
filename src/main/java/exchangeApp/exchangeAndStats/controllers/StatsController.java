@@ -21,17 +21,17 @@ public class StatsController {
         this.exchangeService = exchangeService;
     }
 
-    @GetMapping("/user/")
+    @GetMapping("/")
     public List<Exchange> getStatsOfLoggedUser(Principal principal) {
         return exchangeService.findAllByUsername(principal.getName());
     }
 
-    @GetMapping("/admin/overall")
+    @GetMapping("/overall")
     public List<Exchange> getAll() {
         return exchangeService.getAll();
     }
 
-    @GetMapping("/admin/rating")
+    @GetMapping("/rating")
     public List<ExchangeRating> getConvertRating() {
         return exchangeRatingService.getRating();
     }
