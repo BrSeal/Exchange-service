@@ -6,6 +6,7 @@ import exchangeApp.exchangeAndStats.service.ExchangeRatingService;
 import exchangeApp.exchangeAndStats.service.ExchangeService;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -20,17 +21,17 @@ public class StatsController {
         this.exchangeService = exchangeService;
     }
 
-    @GetMapping("/user/{username}")
-    public List<Exchange> getStatsOfLoggedUser(@PathVariable String username) {
-        return exchangeService.findAllByUsername(username);
+    @GetMapping("/user/")
+    public List<Exchange> getStatsOfLoggedUser(Principal principal) {
+        return exchangeService.findAllByUsername(principal.getName());
     }
 
-    @GetMapping("/overall")
+    @GetMapping("/admin/overall")
     public List<Exchange> getAll() {
         return exchangeService.getAll();
     }
 
-    @GetMapping("/rating")
+    @GetMapping("/admin/rating")
     public List<ExchangeRating> getConvertRating() {
         return exchangeRatingService.getRating();
     }

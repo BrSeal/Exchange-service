@@ -25,7 +25,6 @@ public class JwtUserDetailsService implements UserDetailsService {
         User user = userRepository.findById(s)
                 .orElseThrow(() -> new IllegalArgumentException("User with username \"" + s + "\" not found!"));
 
-        JwtUser jwtUser = JwtUserFactory.create(user);
-        return jwtUser;
+        return JwtUserFactory.create(user);
     }
 }

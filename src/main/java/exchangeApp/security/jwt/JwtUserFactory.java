@@ -11,9 +11,11 @@ public final class JwtUserFactory {
     public JwtUserFactory() {}
 
     public static JwtUser create(User user){
-        return new JwtUser(user.getUsername(),
+        return new JwtUser(
+                user.getUsername(),
                 user.getPassword(),
-                getAuthorities(user));
+                getAuthorities(user)
+        );
     }
 
     private static List<GrantedAuthority> getAuthorities(User user){

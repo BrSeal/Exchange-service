@@ -32,6 +32,6 @@ public class User {
             nullable = false)
     private boolean enabled;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Authority> authorities;
 }

@@ -1,5 +1,6 @@
 package exchangeApp;
 
+import exchangeApp.security.jwt.JwtAuthenticationException;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
@@ -18,8 +19,14 @@ public class MyExceptionHandler {
     private static final Marker BAD_REQUEST_MARKER= MarkerManager.getMarker("BAD_REQUEST");
     private static final Marker EXCEPTION_MARKER= MarkerManager.getMarker("EXCEPTION");
 
+    @ExceptionHandler(JwtAuthenticationException.class)
+    protected ResponseEntity<String> handleJwt(JwtAuthenticationException ex) {
+        log.warn(BAD_REQUEST_MARKER,ex.getMessage());
+        return new ResponseEntity<>(ex.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(IllegalArgumentException.class)
-    protected ResponseEntity<String> handle(IllegalArgumentException ex) {
+    protected ResponseEntity<String> handleIllegalArg(IllegalArgumentException ex) {
         log.warn(BAD_REQUEST_MARKER,ex.getMessage());
         return new ResponseEntity<>(ex.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
     }

@@ -9,6 +9,8 @@ import exchangeApp.exchangeAndStats.service.RatesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @RestController
 @RequestMapping("/exchange")
 public class ExchangeController {
@@ -27,7 +29,8 @@ public class ExchangeController {
     }
 
     @PostMapping("/doExchange")
-    public ExchangeResultDTO doExchange(@RequestBody ExchangeRequestDTO dto) {
+    public ExchangeResultDTO doExchange(@RequestBody ExchangeRequestDTO dto, Principal principal) {
+        dto.setUsername(principal.getName());
         return exchangeService.doExchange(dto.toExchange());
     }
 
