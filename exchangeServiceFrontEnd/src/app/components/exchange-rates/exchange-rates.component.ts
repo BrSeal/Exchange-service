@@ -24,6 +24,7 @@ export class ExchangeRatesComponent implements OnInit {
         this.ratesService.getExchangeRatesList(this.currentBase).subscribe(
             data => {
                 this.currentBase = data.base;
+                this.rates=[]
                 Object.keys(data.rates)
                    .forEach(k => this.rates.push(
                        new ExchangeRate(k, data.rates[k])))
