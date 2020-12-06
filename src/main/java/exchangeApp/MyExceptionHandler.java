@@ -17,11 +17,12 @@ import java.io.StringWriter;
 public class MyExceptionHandler {
 
     private static final Marker BAD_REQUEST_MARKER= MarkerManager.getMarker("BAD_REQUEST");
+    private static final Marker AUTH_MARKER= MarkerManager.getMarker("AUTH_MARKER");
     private static final Marker EXCEPTION_MARKER= MarkerManager.getMarker("EXCEPTION");
 
     @ExceptionHandler(JwtAuthenticationException.class)
     protected ResponseEntity<String> handleJwt(JwtAuthenticationException ex) {
-        log.warn(BAD_REQUEST_MARKER,ex.getMessage());
+        log.warn(AUTH_MARKER,ex.getMessage());
         return new ResponseEntity<>(ex.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
     }
 

@@ -75,6 +75,8 @@ public class JwtTokenProvider {
     public boolean validateToken(String token) throws JwtAuthenticationException {
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(salt).parseClaimsJws(token);
+
+            if(JwtTokenBlackList.isInBlackList(token)) throw new JwtException("In black list");
             return !claims.getBody().getExpiration().before(new Date());
         } catch (JwtException | IllegalArgumentException e) {
             throw new JwtAuthenticationException("JWT token is expired or invalid");

@@ -1,6 +1,7 @@
 package exchangeApp.security;
 
 import exchangeApp.security.DTO.SecurityUserDTO;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,14 +9,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController()
+@AllArgsConstructor
 public class AuthenticationController {
 
     private final AuthenticationService service;
-
-    @Autowired
-    public AuthenticationController(AuthenticationService service) {
-        this.service = service;
-    }
 
     @PostMapping("/authenticate")
     public ResponseEntity<?> authenticate(@RequestBody SecurityUserDTO dto){

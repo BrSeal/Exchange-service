@@ -1,6 +1,7 @@
 package exchangeApp.security.config;
 
 import exchangeApp.security.jwt.JwtConfigurer;
+import exchangeApp.security.jwt.JwtTokenBlackList;
 import exchangeApp.security.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,11 +14,20 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
 
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
@@ -54,8 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/exchange", "/stats/**").hasAnyRole(USER, ADMIN)
-                .antMatchers("/stats/overall/**").hasRole(ADMIN)
+                .antMatchers("/exchange", "/stats", "/rating").hasAnyRole(ADMIN,USER)
                 .antMatchers("/rates").permitAll()
                 .and()
                 .apply(new JwtConfigurer(jwtTokenProvider))
@@ -67,17 +76,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(new SimpleUrlAuthenticationFailureHandler())
                 .and()
                 .logout()
-                .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))
+                .logoutSuccessHandler(new LogoutSuccessHandler(){
+                    @Override
+                    public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
+                        JwtTokenBlackList.addToBlackList(jwtTokenProvider.resolveToken(httpServletRequest));
+                    }
+                })
                 .and()
                 .logout().permitAll();
     }
-
 
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+
 
     //  @Bean
     //  public WebMvcConfigurer corsConfig(){
