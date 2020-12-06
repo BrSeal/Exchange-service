@@ -19,14 +19,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
-import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
-import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
@@ -64,7 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/exchange", "/stats", "/rating").hasAnyRole(ADMIN,USER)
+                .antMatchers("/exchange", "/stats", "/rating", "/user/roles").hasAnyRole(ADMIN, USER)
                 .antMatchers("/rates").permitAll()
                 .and()
                 .apply(new JwtConfigurer(jwtTokenProvider))
@@ -76,7 +75,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(new SimpleUrlAuthenticationFailureHandler())
                 .and()
                 .logout()
-                .logoutSuccessHandler(new LogoutSuccessHandler(){
+                .logoutSuccessHandler(new LogoutSuccessHandler() {
                     @Override
                     public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
                         JwtTokenBlackList.addToBlackList(jwtTokenProvider.resolveToken(httpServletRequest));
@@ -93,16 +92,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    //  @Bean
-    //  public WebMvcConfigurer corsConfig(){
-    //      return new WebMvcConfigurer() {
-    //          @Override
-    //          public void addCorsMappings(CorsRegistry registry) {
-    //              registry.addMapping("/**")
-    //                      .allowedMethods("GET","POST","PUT","DELETE")
-    //                      .allowedHeaders("*")
-    //                      .allowedOrigins("*");
-    //          }
-    //      };
-    //  }
+    @Bean
+    public WebMvcConfigurer corsConfig() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+                        .allowedHeaders("*")
+                        .allowedOrigins("*");
+            }
+        };
+    }
 }

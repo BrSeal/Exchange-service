@@ -8,13 +8,13 @@ import {AuthService} from "./auth.service";
 })
 export class ExchangeRatesService {
 
-  private baseUrl = 'http://localhost:8080/exchange/rates';
+  private baseUrl = 'http://localhost:8080/rates?base=';
 
   constructor(private httpClient:HttpClient,
               private authService:AuthService) { }
 
   getExchangeRatesList(base:string):Observable<MapWithBase>{
-   return  this.httpClient.get<MapWithBase>(this.baseUrl, this.authService.getHeaders());
+   return  this.httpClient.get<MapWithBase>(this.baseUrl+base, this.authService.getHeaders());
   }
 }
 

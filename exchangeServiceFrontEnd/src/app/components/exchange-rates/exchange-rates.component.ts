@@ -12,19 +12,16 @@ export class ExchangeRatesComponent implements OnInit {
     currentBase: string;
 
     constructor(private ratesService: ExchangeRatesService) {
+      this.currentBase="usd"
        this.rates = [];
     }
 
-    setCurrentBase(base: string) {
-        this.currentBase = base;
-    }
-
     ngOnInit(): void {
-        this.listRates(this.currentBase);
+        this.listRates();
     }
 
     listRates() {
-        this.ratesService.getExchangeRatesList().subscribe(
+        this.ratesService.getExchangeRatesList(this.currentBase).subscribe(
             data => {
                 this.currentBase = data.base;
                 Object.keys(data.rates)

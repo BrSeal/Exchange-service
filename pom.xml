@@ -7,6 +7,7 @@
     <artifactId>Exchange-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Exchange-service</name>
+    <packaging>jar</packaging>
     <description>My currency exchange app</description>
 
     <properties>
@@ -87,6 +88,11 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

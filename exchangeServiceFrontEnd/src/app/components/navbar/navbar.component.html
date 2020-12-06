@@ -1,12 +1,16 @@
-<nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top">
-  <a class="navbar-brand" href="#">Exchange Service</a>
-  <div id="navb" class="navbar-collapse collapse hide">
-    <ul class="navbar-nav">
-      <li><a routerLink="/getRates" routerLinkActive="active">Current rates</a></li>
-      <li *ngIf="isAuth()"><a routerLink="/getStats" routerLinkActive="active">Statistics</a></li>
+<div>
+  <nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top">
+    <a class="navbar-brand" href="#">Exchange Service</a>
+    <div id="navb" class="navbar-collapse collapse hide">
+      <ul class="navbar-nav">
+        <li><a routerLink="/getRates" routerLinkActive="active">Current rates</a></li>
+        <li *ngIf="isAuth()"><a routerLink="/getStats" routerLinkActive="active">Statistics</a></li>
 
-      <li *ngIf="!isAuth()"><a routerLink="/login" routerLinkActive="active">Log In</a></li>
-      <li *ngIf="isAuth()"><button (click)="logout()">Log Out</button> </li>
-    </ul>
-  </div>
-</nav>
+        <li *ngIf="!isAuth()"><a routerLink="/login" routerLinkActive="active">Log In</a></li>
+        <li *ngIf="isAuth()">
+          <button (click)="logout()">Log Out</button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
