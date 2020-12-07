@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ExchangeRatesService} from "../../services/exchange-rates.service";
 import {ExchangeRate} from "../../common/exchange-rate";
 import {AuthService} from "../../services/auth.service";
+import {ExchangeService} from "../../services/exchange.service";
 
 @Component({
   selector: 'app-exchange-rates',
@@ -11,8 +12,11 @@ import {AuthService} from "../../services/auth.service";
 export class ExchangeRatesComponent implements OnInit {
   rates: ExchangeRate[];
   currentBase: string;
+  to: string;
+  amount: number;
 
   constructor(private ratesService: ExchangeRatesService,
+              private exchangeService:ExchangeService,
               private authService: AuthService) {
     this.currentBase = "usd"
     this.rates = [];
@@ -36,5 +40,11 @@ export class ExchangeRatesComponent implements OnInit {
 
   isAuth() {
     return this.authService.isAuth();
+  }
+
+  doExchange() {
+    this.exchangeService.doExchange({amount:this.amount,from:this.currentBase,to:this.to})
+      .subscribe(data=>alert("Exchange id: "+data.exchangeId+"\nResulting amount: "+data.amount),
+        error => alert("Something gone horribly wrong!!!"))
   }
 }

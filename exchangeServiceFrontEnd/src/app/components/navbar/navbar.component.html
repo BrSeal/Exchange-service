@@ -3,18 +3,17 @@
     <a class="navbar-brand" href="#">Exchange Service</a>
     <div id="navb" class="navbar-collapse collapse hide">
       <ul class="navbar-nav">
-        <li><a routerLink="/getRates" routerLinkActive="active">Current rates</a></li>
+        <li><a routerLink="/getRates" routerLinkActive="active">Rates</a></li>
         <li *ngIf="isAuth()"><a routerLink="/getStats" routerLinkActive="active">Statistics</a></li>
-
-        <li *ngIf="isAuth()"><a routerLink="/exchangeForm" routerLinkActive="active">Exchange</a></li>
-
-        <li *ngIf="!isAuth()"><a routerLink="/loginForm" routerLinkActive="active">Log In</a></li>
-
-        <li *ngIf="!isAuth()"><a routerLink="/registration" routerLinkActive="active">Register</a></li>
-        <li *ngIf="isAuth()">
-          <button (click)="logout()">Log Out</button>
-        </li>
+        <li *ngIf="isAuth()"><a routerLink="/getStatistics" routerLinkActive="active">Exchange rating</a></li>
       </ul>
     </div>
+    <div *ngIf="!isAuth()" class="btn-group btn-group-toggle pull-right" data-toggle="buttons">
+        <a  class="btn btn-info" routerLink="/registration" routerLinkActive="active">Register</a>
+        <a  class="btn btn-info" routerLink="/loginForm" routerLinkActive="active">Log In</a>
+    </div>
+
+    <button *ngIf="isAuth()" class="btn btn-info pull-right" (click)="logout()">Log Out</button>
+
   </nav>
 </div>

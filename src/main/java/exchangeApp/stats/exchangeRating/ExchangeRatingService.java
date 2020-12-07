@@ -1,5 +1,6 @@
 package exchangeApp.stats.exchangeRating;
 
+import exchangeApp.stats.DTO.ExchangeRatingDto;
 import exchangeApp.stats.exchangeRating.entity.ExchangeRating;
 
 import java.util.List;
@@ -7,5 +8,5 @@ import java.util.List;
 public interface ExchangeRatingService {
     void add(ExchangeRating rating);
 
-    List<ExchangeRating> getRating();
+    List<ExchangeRatingDto> getRating();
 }

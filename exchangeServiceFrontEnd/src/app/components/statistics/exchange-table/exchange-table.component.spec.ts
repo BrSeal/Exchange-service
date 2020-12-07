@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExchangeFormComponent } from './exchange-form.component';
+import { ExchangeTableComponent } from './exchange-table.component';
 
-describe('ExchangeFormComponent', () => {
-  let component: ExchangeFormComponent;
-  let fixture: ComponentFixture<ExchangeFormComponent>;
+describe('ExchangeTableComponent', () => {
+  let component: ExchangeTableComponent;
+  let fixture: ComponentFixture<ExchangeTableComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ExchangeFormComponent ]
+      declarations: [ ExchangeTableComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ExchangeFormComponent);
+    fixture = TestBed.createComponent(ExchangeTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -8,7 +8,7 @@ import {Observable} from "rxjs";
 })
 export class ExchangeService {
 
-  private exchangeUrl = "'http://localhost:8080/exchange";
+  private exchangeUrl = "http://localhost:8080/exchange";
 
   constructor(private httpClient: HttpClient,
               private authService: AuthService,) {
@@ -24,6 +24,6 @@ export class ExchangeService {
 }
 
 export interface ExchangeResult {
-  id: number,
+  exchangeId: number,
   amount: number
 }

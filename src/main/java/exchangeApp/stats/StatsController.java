@@ -1,5 +1,6 @@
 package exchangeApp.stats;
 
+import exchangeApp.stats.DTO.ExchangeRatingDto;
 import exchangeApp.stats.DTO.StatsRequest;
 import exchangeApp.stats.DTO.StatsResponse;
 import exchangeApp.stats.exchangeRating.ExchangeRatingService;
@@ -36,7 +37,7 @@ public class StatsController {
     }
 
     @GetMapping("/rating")
-    public List<ExchangeRating> getRating() {
+    public List<ExchangeRatingDto> getRating() {
         return ratingService.getRating();
     }
 }

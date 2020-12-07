@@ -1,1 +1,14 @@
-<p>{{getRoles()}}</p>
+
+
+
+<app-exchange-table
+  *ngIf="roles.indexOf('ADMIN')===-1||response.exchanges===null"
+  [exchanges]="response.exchanges"></app-exchange-table>
+
+<app-users-list
+  *ngIf="roles.indexOf('ADMIN')!==-1||response.exchangedMany!==null"
+  [users]="response.exchangedMany"></app-users-list>
+
+<app-users-list
+  *ngIf="roles.indexOf('ADMIN')!==-1||response.moreThanAtOnes!==null"
+  [users]="response.moreThanAtOnes"></app-users-list>
