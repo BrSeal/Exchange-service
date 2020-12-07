@@ -1,13 +1,13 @@
 <div>
-    <div class="form-group col-6 col-sm-3">
-      <label for="baseSelect">Change base</label>
-      <select class="form-control" [(ngModel)]="currentBase" id="baseSelect">
-        <option *ngFor="let exchangeRate of rates" [ngValue]="exchangeRate.base">
-          {{exchangeRate.base}}
-        </option>
-      </select>
-      <input type="button" value="Submit" (click)="listRates()">
-    </div>
+  <div class="form-group col-6 col-sm-3">
+    <label for="baseSelect">Change base</label>
+    <select class="form-control" [(ngModel)]="currentBase" id="baseSelect">
+      <option *ngFor="let exchangeRate of rates" [ngValue]="exchangeRate.base">
+        {{exchangeRate.base}}
+      </option>
+    </select>
+    <input type="button" value="Submit" (click)="listRates()">
+  </div>
 
 
   <div>
@@ -22,7 +22,8 @@
       <tbody>
       <tr *ngFor="let exchangeRate of rates">
         <td>{{exchangeRate.base}}</td>
-        <td>{{exchangeRate.rate}}</td>
+        <td>{{1 / exchangeRate.rate|currency:currentBase}}</td>
+        <td *ngIf="isAuth()"><a routerLink="/exchangeForm" routerLinkActive="active">Exchange!</a></td>
       </tr>
 
       </tbody>

@@ -10,12 +10,12 @@ export class StatisticsComponent implements OnInit {
   public roles:string[]
 
   constructor(
-    private authService:AuthService,
-
-  ) { }
+    private authService:AuthService) {
+    this.roles=[];
+  }
 
   getRoles():string[]{
-    this.authService.getRoles().subscribe(d=>this.roles=d);
+    if(this.roles.length===0) this.authService.getRoles().subscribe(d=>this.roles=d);
     return this.roles;
   }
 

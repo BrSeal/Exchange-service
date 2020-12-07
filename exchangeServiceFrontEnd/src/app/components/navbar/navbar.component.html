@@ -6,7 +6,11 @@
         <li><a routerLink="/getRates" routerLinkActive="active">Current rates</a></li>
         <li *ngIf="isAuth()"><a routerLink="/getStats" routerLinkActive="active">Statistics</a></li>
 
-        <li *ngIf="!isAuth()"><a routerLink="/login" routerLinkActive="active">Log In</a></li>
+        <li *ngIf="isAuth()"><a routerLink="/exchangeForm" routerLinkActive="active">Exchange</a></li>
+
+        <li *ngIf="!isAuth()"><a routerLink="/loginForm" routerLinkActive="active">Log In</a></li>
+
+        <li *ngIf="!isAuth()"><a routerLink="/registration" routerLinkActive="active">Register</a></li>
         <li *ngIf="isAuth()">
           <button (click)="logout()">Log Out</button>
         </li>

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { ExchangeRatesComponent } from './components/exchange-rates/exchange-rates.component';
@@ -10,6 +10,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './components/login/login.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import {FormsModule} from "@angular/forms";
+import { RegistrationComponent } from './components/registration/registration.component';
+import { ExchangeFormComponent } from './components/exchange-form/exchange-form.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import {FormsModule} from "@angular/forms";
     NavbarComponent,
     LoginComponent,
     StatisticsComponent,
+    RegistrationComponent,
+    ExchangeFormComponent,
   ],
   imports: [
     BrowserModule,

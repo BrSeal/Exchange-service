@@ -11,6 +11,7 @@ export class AuthService {
   private authUrl = "http://localhost:8080/authenticate";
   private rolesUrl = "http://localhost:8080/user/roles";
   private logoutUrl = "http://localhost:8080/logout";
+  private registerUrl = "http://localhost:8080/register";
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -20,8 +21,10 @@ export class AuthService {
 
   public roles: string[];
 
+
   constructor(private httpClient: HttpClient,
               private router: Router) {
+    this.roles = [];
   }
 
   getHeaders(): HttpOptions {
@@ -31,18 +34,20 @@ export class AuthService {
   login({username, password}) {
     this.httpClient.post(this.authUrl, {username, password})
       .subscribe(data => {
+        this.httpOptions.headers = this.httpOptions.headers.set("token", "Bearer_" + data["token"]);
         this.getRoles().subscribe(roles => {
-          this.roles = roles;
-          this.router.navigate(['/getRates'])
-            .then(r => this.httpOptions.headers = this.httpOptions.headers.set('Authorization', "data['_token']"));
-        }, error => console.log("Status:", error.status, "\nMessage: ", error.message))
+            this.roles = roles;
+            this.router.navigate(['/getRates'])
+          }, () => alert("Username or password is invalid!")
+        )
       });
   }
 
   logout() {
     this.httpClient.post(this.logoutUrl, null, this.httpOptions);
     this.roles = [];
-    this.httpOptions.headers = this.httpOptions.headers.delete('Authorization');
+    this.httpOptions.headers = this.httpOptions.headers.delete('token');
+    this.router.navigate(["/loginForm"]);
   }
 
   getRoles(): Observable<string[]> {
@@ -50,8 +55,15 @@ export class AuthService {
   }
 
   isAuth(): boolean {
-    return Boolean(this.httpOptions.headers.get('Authorization') &&
-      this.httpOptions.headers.get('Authorization').length);
+    return Boolean(this.httpOptions.headers.get('token') && this.httpOptions.headers.get('token').length);
+  }
+
+  register({username, password}) {
+    this.httpClient.post(this.registerUrl, {username, password}, {responseType: 'text'})
+      .subscribe(() => {
+          this.router.navigate(["/loginForm"]);
+        },
+        () => alert("Username is already taken or invalid!"));
   }
 }
 
