@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ExchangeRatesComponent } from './exchange-rates.component';
+import {ExchangeRatesComponent} from './exchange-rates.component';
 
 describe('ExchangeRatesComponent', () => {
   let component: ExchangeRatesComponent;

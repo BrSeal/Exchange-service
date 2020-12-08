@@ -2,16 +2,16 @@ package exchangeApp.exchange;
 
 import exchangeApp.exchange.DTO.ExchangeResultDTO;
 import exchangeApp.exchange.entity.Exchange;
+import exchangeApp.rates.RatesService;
 import exchangeApp.security.UserRepository;
 import exchangeApp.security.entity.User;
-import exchangeApp.stats.exchangeRating.entity.ExchangeRating;
-import exchangeApp.rates.RatesService;
 import exchangeApp.stats.exchangeRating.ExchangeRatingService;
+import exchangeApp.stats.exchangeRating.entity.ExchangeRating;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.Map;
 
 @Service
 @Transactional

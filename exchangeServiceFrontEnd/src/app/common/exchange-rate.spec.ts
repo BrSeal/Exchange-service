@@ -1,4 +1,4 @@
-import { ExchangeRate } from './exchange-rate';
+import {ExchangeRate} from './exchange-rate';
 
 describe('ExchangeRate', () => {
   it('should create an instance', () => {

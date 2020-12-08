@@ -1,8 +1,8 @@
 package exchangeApp.exchange.DTO;
 
+import exchangeApp.exchange.entity.Exchange;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import exchangeApp.exchange.entity.Exchange;
 
 import java.util.Date;
 

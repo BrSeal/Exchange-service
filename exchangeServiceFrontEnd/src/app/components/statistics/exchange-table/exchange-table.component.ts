@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Exchange, StatsResponse} from "../statistics.component";
+import {ResourcesService} from "../../../services/resources.service";
 
 @Component({
   selector: 'app-exchange-table',
@@ -8,11 +9,12 @@ import {Exchange, StatsResponse} from "../statistics.component";
 })
 export class ExchangeTableComponent implements OnInit {
 
-  @Input() exchanges:Exchange[];
+  exchanges:Exchange[];
 
-  constructor() { }
+  constructor(private res:ResourcesService) {
+    this.exchanges=this.res.exchanges;
+  }
 
   ngOnInit(): void {
   }
-
 }

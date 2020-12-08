@@ -1,7 +1,6 @@
 package exchangeApp.exchange;
 
 import exchangeApp.exchange.entity.Exchange;
-import exchangeApp.security.entity.User;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;

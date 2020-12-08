@@ -6,13 +6,15 @@ import exchangeApp.exchange.CheckProvider;
 import exchangeApp.rates.DTO.CurrentRatesWithBaseDTO;
 import exchangeApp.rates.DTO.ExternalApiResponse;
 import exchangeApp.rates.entity.Rates;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 @Transactional

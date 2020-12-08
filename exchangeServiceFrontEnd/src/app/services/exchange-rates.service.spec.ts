@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { ExchangeRatesService } from './exchange-rates.service';
+import {ExchangeRatesService} from './exchange-rates.service';
 
 describe('ExchangeRatesService', () => {
   let service: ExchangeRatesService;

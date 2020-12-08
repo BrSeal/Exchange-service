@@ -4,7 +4,6 @@ import exchangeApp.stats.DTO.ExchangeRatingDto;
 import exchangeApp.stats.DTO.StatsRequest;
 import exchangeApp.stats.DTO.StatsResponse;
 import exchangeApp.stats.exchangeRating.ExchangeRatingService;
-import exchangeApp.stats.exchangeRating.entity.ExchangeRating;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

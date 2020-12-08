@@ -1,18 +1,6 @@
-<div *ngIf="getRoles().indexOf('ADMIN')!==-1" class="formControl">
-  <input class="form-control col-6 col-sm-3" type="checkbox" [(ngModel)]="request.myExchanges" [checked]="request.myExchanges === true">
-  <label>Find users with total exchange sum more than</label>
-  <input class="form-control" type="number" [(ngModel)]="request.moreThanInTotal" name="total"[defaultValue]="0"/>
-  <label>Find users who exchanged more than</label>
-  <input class="form-control" type="number" [(ngModel)]="request.moreThanAtOnes" name="total"[defaultValue]="0"/>
+<div *ngIf="getRoles().indexOf('ROLE_ADMIN')!==-1" class="formControl">
+  <button class="btn btn-info" (click)="showMyExchanges()">Show my exchanges</button>
+    <label>Find users with total exchange sum more than</label>
 </div>
+<app-exchange-table *ngIf="getRoles().indexOf('ROLE_ADMIN')===-1"></app-exchange-table>
 
-<app-exchange-table
-  [exchanges]="response.exchanges"></app-exchange-table>
-
-<app-users-list
-  *ngIf="getRoles().indexOf('ADMIN')!==-1||response.exchangedMany.length"
-  [usernames]="response.exchangedMany"></app-users-list>
-
-<app-users-list
-  *ngIf="getRoles().indexOf('ADMIN')!==-1||response.moreThanAtOnes"
-  [usernames]="response.moreThanAtOnes"></app-users-list>

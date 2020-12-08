@@ -5,7 +5,6 @@ import exchangeApp.security.entity.User;
 import exchangeApp.security.jwt.JwtAuthenticationException;
 import exchangeApp.security.jwt.JwtTokenProvider;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ExchangeTableComponent } from './exchange-table.component';
+import {ExchangeTableComponent} from './exchange-table.component';
 
 describe('ExchangeTableComponent', () => {
   let component: ExchangeTableComponent;

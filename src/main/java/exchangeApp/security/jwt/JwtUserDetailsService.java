@@ -1,9 +1,8 @@
 package exchangeApp.security.jwt;
 
-import exchangeApp.security.entity.User;
 import exchangeApp.security.UserRepository;
+import exchangeApp.security.entity.User;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

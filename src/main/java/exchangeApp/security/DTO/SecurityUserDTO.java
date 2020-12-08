@@ -7,7 +7,7 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.Set;
 
-import static exchangeApp.security.entity.Role.*;
+import static exchangeApp.security.entity.Role.ROLE_USER;
 
 @Data
 public class SecurityUserDTO {

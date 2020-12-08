@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {Observable} from "rxjs";
+import {ResourcesService} from "./resources.service";
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,8 @@ export class AuthService {
 
 
   constructor(private httpClient: HttpClient,
-              private router: Router) {
+              private router: Router,
+              private res:ResourcesService) {
     this.roles = [];
   }
 
@@ -46,6 +48,7 @@ export class AuthService {
     this.httpClient.post(this.logoutUrl, null, this.httpOptions);
     this.roles = [];
     this.httpOptions.headers = this.httpOptions.headers.delete('token');
+    this.res.setDefault();
     this.router.navigate(["/loginForm"]);
   }
 
