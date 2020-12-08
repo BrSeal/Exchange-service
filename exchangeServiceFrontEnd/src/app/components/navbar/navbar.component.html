@@ -5,7 +5,7 @@
       <ul class="navbar-nav">
         <li><a routerLink="/getRates" routerLinkActive="active">Rates</a></li>
         <li *ngIf="isAuth()"><a routerLink="/getStats" routerLinkActive="active">Statistics</a></li>
-        <li *ngIf="isAuth()"><a routerLink="/getStatistics" routerLinkActive="active">Exchange rating</a></li>
+        <li *ngIf="isAuth()"><a routerLink="/getRatings" routerLinkActive="active">Exchange rating</a></li>
       </ul>
     </div>
     <div *ngIf="!isAuth()" class="btn-group btn-group-toggle pull-right" data-toggle="buttons">

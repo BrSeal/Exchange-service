@@ -5,7 +5,7 @@ import {LoginComponent} from "./components/login/login.component";
 import {StatisticsComponent} from "./components/statistics/statistics.component";
 import {GuardGuard} from "./auth/guard.guard";
 import {RegistrationComponent} from "./components/registration/registration.component";
-import {RatingsComponent} from "./components/ratings/ratings.component";
+import {RatingComponent} from "./components/rating/rating.component";
 
 const routes: Routes = [
   {path: '', component: ExchangeRatesComponent},
@@ -13,7 +13,7 @@ const routes: Routes = [
   {path: 'getStats', component: StatisticsComponent, canActivate: [GuardGuard]},
   {path: 'loginForm', component: LoginComponent},
   {path: 'registration', component: RegistrationComponent},
-  {path: 'getStatistics', component: RatingsComponent}
+  {path: 'getRatings', component: RatingComponent}
 ];
 
 @NgModule({

@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Output} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
-import {HttpClient} from "@angular/common/http";
+import {StatsService} from "../../services/stats.service";
 
 @Component({
   selector: 'app-statistics',
@@ -9,11 +9,12 @@ import {HttpClient} from "@angular/common/http";
 })
 export class StatisticsComponent implements OnInit {
   roles: string[]
-  response: StatsResponse;
+ @Output() response: StatsResponse;
   request: StatsRequest;
 
+
   constructor(
-    private httpClient: HttpClient,
+    private statsService:StatsService,
     private authService: AuthService) {
     this.roles = [];
   }
@@ -24,11 +25,15 @@ export class StatisticsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.roles.indexOf("ADMIN") === -1) {
+    this.getRoles();
+    if(this.getRoles().indexOf('ADMIN')===-1) this.getStats();
+  }
 
-
-    }
-
+  getStats(){
+   this.statsService.getStats(this.request).subscribe(response=>{
+     this.response=response;
+     alert(response.exchanges[0]+" "+this.response.exchanges[0]);
+   });
   }
 }
 

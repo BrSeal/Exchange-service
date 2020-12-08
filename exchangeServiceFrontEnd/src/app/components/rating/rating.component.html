@@ -1,0 +1,17 @@
+<h2>Exchanges</h2>
+<table class="table table-hover col-6 col-sm-3">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">From</th>
+    <th scope="col">To</th>
+    <th scope="col">Frequency</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let rate of rating">
+    <td>{{rate.from}}</td>
+    <td>{{rate.to}}</td>
+    <td>{{rate.frequency}}</td>
+  </tr>
+  </tbody>
+</table>

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Exchange} from "../statistics.component";
+import {Exchange, StatsResponse} from "../statistics.component";
 
 @Component({
   selector: 'app-exchange-table',

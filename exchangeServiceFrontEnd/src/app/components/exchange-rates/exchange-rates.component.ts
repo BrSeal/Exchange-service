@@ -29,13 +29,10 @@ export class ExchangeRatesComponent implements OnInit {
   listRates() {
     this.ratesService.getExchangeRatesList(this.currentBase).subscribe(
       data => {
-        this.currentBase = data.base;
         let rates = [];
         Object.keys(data.rates).forEach(k => rates.push(new ExchangeRate(k, data.rates[k])));
         this.rates=rates.sort((a,b)=>a.base<b.base?-1:1)
-      },
-      error => alert(error.message)
-    );
+      }, error => alert(error.message));
   }
 
   isAuth() {

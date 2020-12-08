@@ -29,7 +29,7 @@ public class ExchangeRatingServiceImpl implements ExchangeRatingService{
 
     @Override
     public List<ExchangeRatingDto> getRating() {
-        return repository.findByOrderByFrequency().stream()
+        return repository.findByOrderByFrequencyDesc().stream()
                 .map(ExchangeRatingDto::new)
                 .collect(Collectors.toList());
     }

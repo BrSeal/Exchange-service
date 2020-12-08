@@ -13,8 +13,7 @@ import {FormsModule} from "@angular/forms";
 import { RegistrationComponent } from './components/registration/registration.component';
 import { ExchangeTableComponent } from './components/statistics/exchange-table/exchange-table.component';
 import { UsersListComponent } from './components/statistics/users-list/users-list.component';
-import { AdminFormComponent } from './components/statistics/admin-form/admin-form.component';
-import { RatingsComponent } from './components/ratings/ratings.component';
+import { RatingComponent } from './components/rating/rating.component';
 
 @NgModule({
   declarations: [
@@ -26,8 +25,7 @@ import { RatingsComponent } from './components/ratings/ratings.component';
     RegistrationComponent,
     ExchangeTableComponent,
     UsersListComponent,
-    AdminFormComponent,
-    RatingsComponent,
+    RatingComponent
   ],
   imports: [
     BrowserModule,

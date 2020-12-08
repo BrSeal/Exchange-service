@@ -38,9 +38,8 @@ export class AuthService {
         this.getRoles().subscribe(roles => {
             this.roles = roles;
             this.router.navigate(['/getRates'])
-          }, () => alert("Username or password is invalid!")
-        )
-      });
+          })
+      },error => alert("Wrong username or password!"));
   }
 
   logout() {

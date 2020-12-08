@@ -2,15 +2,20 @@ package exchangeApp.stats.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class StatsResponse {
     private List<ExchangeDto> myExchanges;
     private List<String> exchangedMany;
     private List<String> moreThanAtOnes;
+
+    public StatsResponse() {
+        myExchanges = new ArrayList<>();
+        exchangedMany = new ArrayList<>();
+        moreThanAtOnes = new ArrayList<>();
+    }
 }

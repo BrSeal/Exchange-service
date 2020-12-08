@@ -13,5 +13,5 @@ public interface ExchangeRatingRepository extends CrudRepository<ExchangeRating,
 
     ExchangeRating findByFromEqualsAndToEquals(String from,String to);
 
-    List<ExchangeRating> findByOrderByFrequency();
+    List<ExchangeRating> findByOrderByFrequencyDesc();
 }
