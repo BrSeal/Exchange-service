@@ -1,8 +1,6 @@
 import {Component, OnInit, Output} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {StatsService} from "../../services/stats.service";
-import {ResourcesService} from "../../services/resources.service";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-statistics',
@@ -11,15 +9,15 @@ import {Router} from "@angular/router";
 })
 export class StatisticsComponent implements OnInit {
   roles: string[]
-  @Output() response: StatsResponse;
   request: StatsRequest;
-
+  usernames: string[]
+  total = 0;
+  ones =0;
+  label: string;
 
   constructor(
     private statsService: StatsService,
-    private authService: AuthService,
-    private res: ResourcesService,
-    private router: Router) {
+    private authService: AuthService) {
     this.roles = [];
   }
 
@@ -31,26 +29,20 @@ export class StatisticsComponent implements OnInit {
     this.authService.getRoles().subscribe(d => this.roles = d);
   }
 
-  getStats() {
-    this.statsService.getStats(this.request).subscribe(response => {
-      this.response = response;
-      this.res.exchanges = response.myExchanges;
-      this.res.moreThanAtOnes = response.moreThanAtOnes;
-      this.res.exchangedMany = response.exchangedMany;
-    });
-    if (this.getRoles().indexOf("ROLE_ADMIN") === -1) this.router.navigate(['/myExchanges']);
-  }
-
-  showMyExchanges() {
-    this.statsService.getStats(this.request).subscribe(response => this.res.exchanges = response.myExchanges);
-    this.router.navigate(['/myExchanges']);
-  }
-
   showMoreThanInTotal() {
-
+    this.statsService.getStats({moreThanInTotal: this.total,moreThanAtOnes:0})
+      .subscribe(data => {
+        this.label="Show users who exchanged more than "+this.total+" in total";
+        this.usernames = data.exchangedMany;
+      });
   }
 
   showMoreThanAtOnes() {
+    this.statsService.getStats({moreThanAtOnes: this.ones,moreThanInTotal:0})
+      .subscribe(data => {
+        this.label="Show users who exchanged more than "+this.ones+" at ones";
+        this.usernames = data.moreThanAtOnes;
+      });
 
   }
 }
@@ -62,7 +54,6 @@ export interface StatsResponse {
 }
 
 export interface StatsRequest {
-  myExchanges: boolean;
   moreThanInTotal: number;
   moreThanAtOnes: number;
 }

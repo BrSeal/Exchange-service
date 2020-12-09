@@ -1,1 +1,5 @@
-<p>userlist placeholder</p>
+<h3>{{label}}</h3>
+<ul *ngIf="usernames.length!==0">
+  <li *ngFor="let name of usernames">{{name}}</li>
+</ul>
+<h2 *ngIf="usernames.length===0">No users found</h2>

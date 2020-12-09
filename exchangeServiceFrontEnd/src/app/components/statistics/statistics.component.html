@@ -1,6 +1,16 @@
 <div *ngIf="getRoles().indexOf('ROLE_ADMIN')!==-1" class="formControl">
-  <button class="btn btn-info" (click)="showMyExchanges()">Show my exchanges</button>
-    <label>Find users with total exchange sum more than</label>
+  <div style="display: flex;">
+  <input type="number" [(ngModel)]="total" name="total">
+  <button class="btn btn-info" (click)="showMoreThanInTotal()">Show users who exchanged more than {{total}} in total
+  </button>
+  </div>
+  <div style="display: flex;">
+    <input type="number" [(ngModel)]="ones" name="ones">
+  <button class="btn btn-info" (click)="showMoreThanAtOnes()">Show users who exchanged more than {{ones}} at ones
+  </button>
+  </div>
 </div>
-<app-exchange-table *ngIf="getRoles().indexOf('ROLE_ADMIN')===-1"></app-exchange-table>
-
+<div style="display: flex;">
+  <app-exchange-table></app-exchange-table>
+  <app-users-list [usernames]="usernames" [label]="label"></app-users-list>
+</div>

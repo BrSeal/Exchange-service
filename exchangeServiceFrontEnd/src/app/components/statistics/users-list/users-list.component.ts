@@ -6,7 +6,8 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./users-list.component.css']
 })
 export class UsersListComponent implements OnInit {
-  @Input() usernames
+  @Input() usernames:string[];
+  @Input() label:string;
   constructor() { }
 
   ngOnInit(): void {

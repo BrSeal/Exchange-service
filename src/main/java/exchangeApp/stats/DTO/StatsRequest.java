@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StatsRequest {
-    private boolean myExchanges;
     private double moreThanInTotal;
     private double moreThanAtOnes;
 }

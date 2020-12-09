@@ -29,13 +29,11 @@ public class StatsServiceImpl implements StatsService {
             double moreThanInTotal = request.getMoreThanInTotal();
             double moreThanAtOnes = request.getMoreThanAtOnes();
 
-            if (request.isMyExchanges()) {
-                List<ExchangeDto> exchangeDtos=exchangeRepository.findAllByUser(user).stream()
+            List<ExchangeDto> exchangeDtos=exchangeRepository.findAllByUser(user).stream()
                         .map(ExchangeDto::new)
                         .collect(Collectors.toList());
 
                 response.setMyExchanges(exchangeDtos);
-            }
 
             if (moreThanInTotal != 0) {
                 List<String> usernames = userRepository.getUsersExchangedMoreInTotal(moreThanInTotal)

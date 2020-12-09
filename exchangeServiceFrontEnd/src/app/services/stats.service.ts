@@ -9,16 +9,19 @@ import {Observable} from "rxjs";
 })
 export class StatsService {
 
-  private statsUrl="http://localhost:8080/stats"
+  private statsUrl = "http://localhost:8080/stats"
 
   constructor(private httpClient: HttpClient,
               private authService: AuthService) {
   }
 
-  getStats(request: StatsRequest):Observable<StatsResponse> {
-    if(this.authService.roles.indexOf("ADMIN")===-1)
-      return  this.httpClient.get<StatsResponse>(this.statsUrl, this.authService.getHeaders());
-    return  this.httpClient.post<StatsResponse>(this.statsUrl, request, this.authService.getHeaders());
+  getStats(request?: StatsRequest): Observable<StatsResponse> {
+    let params = {
+      ...this.authService.getHeaders(),
+      params: request||{}
+    }
+    // @ts-ignore
+    return this.httpClient.get<StatsResponse>(this.statsUrl, params);
   }
 }
 

@@ -7,10 +7,7 @@ import exchangeApp.stats.exchangeRating.ExchangeRatingService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,7 +24,7 @@ public class StatsController {
     private final ExchangeRatingService ratingService;
 
     @RequestMapping(method = {GET, POST}, path = "/stats")
-    public StatsResponse getStats(@RequestBody(required = false) StatsRequest statsRequest, Authentication auth) {
+    public StatsResponse getStats(StatsRequest statsRequest, Authentication auth) {
         List<String> authorities = auth.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());

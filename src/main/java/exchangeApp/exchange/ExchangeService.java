@@ -5,6 +5,4 @@ import exchangeApp.exchange.entity.Exchange;
 
 public interface ExchangeService {
     ExchangeResultDTO doExchange(Exchange exchange,String username);
-
-
 }

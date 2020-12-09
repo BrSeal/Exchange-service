@@ -7,6 +7,7 @@ import {GuardGuard} from "./auth/guard.guard";
 import {RegistrationComponent} from "./components/registration/registration.component";
 import {RatingComponent} from "./components/rating/rating.component";
 import {ExchangeTableComponent} from "./components/statistics/exchange-table/exchange-table.component";
+import {UsersListComponent} from "./components/statistics/users-list/users-list.component";
 
 const routes: Routes = [
   {path: '', component: ExchangeRatesComponent},
@@ -15,7 +16,8 @@ const routes: Routes = [
   {path: 'loginForm', component: LoginComponent},
   {path: 'registration', component: RegistrationComponent},
   {path: 'getRatings', component: RatingComponent},
-  {path: 'myExchanges', component: ExchangeTableComponent}
+  {path: 'myExchanges', component: ExchangeTableComponent},
+  {path: 'findUsers', component: UsersListComponent}
 ];
 
 @NgModule({
