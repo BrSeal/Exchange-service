@@ -79,7 +79,7 @@ public class JwtTokenProvider {
             if(JwtTokenBlackList.isInBlackList(token)) throw new JwtException("In black list");
             return !claims.getBody().getExpiration().before(new Date());
         } catch (JwtException | IllegalArgumentException e) {
-            throw new JwtAuthenticationException("JWT token is expired or invalid");
+            throw new IllegalArgumentException("JWT token is expired or invalid");
         }
     }
 

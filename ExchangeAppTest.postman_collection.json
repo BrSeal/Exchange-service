@@ -1,0 +1,1344 @@
+{
+	"info": {
+		"_postman_id": "e1d5e0de-e70a-433c-8373-cccfff0d3e21",
+		"name": "ExchangeAppTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Init",
+			"item": [
+				{
+					"name": "getRates",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f5022bc0-a084-447e-9dd4-32c9268613bb",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"let map= jsonData.rates;\r",
+									"postman.setGlobalVariable(\"map\",JSON.stringify(map) );\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"bases\",Object.keys(jsonData.rates));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}rates",
+							"host": [
+								"{{url}}rates"
+							]
+						},
+						"description": "try to get exchange rates"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register new user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1fa73a00-a6d4-4760-95f3-35f91e30d058",
+								"exec": [
+									"console.log(pm.response.body);\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.response.to.have.body(pm.environment.get(\"username\"));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status 200\",function(){pm.response.to.have.status(\"OK\");});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}register",
+							"host": [
+								"{{url}}register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login ",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "296feb4a-24c7-4fec-b961-29382d320233",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"token\", \"Bearer_\"+jsonData.token);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"{{username}}\",\r\n    \"password\":\"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}authenticate",
+							"host": [
+								"{{url}}authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login  with wrong password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "900474dd-2dac-49c1-a207-45980f3f0bfd",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"{{username}}\",\r\n    \"password\":\"WRONG_PASSWORD\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}authenticate",
+							"host": [
+								"{{url}}authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Try to get user roles",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "79596f5f-80a7-4545-b995-9a68de34a370",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}user/roles",
+							"host": [
+								"{{url}}user"
+							],
+							"path": [
+								"roles"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "23b9e81f-54f1-4538-a875-cf9a0da4d313",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "fe4aa380-cda7-4431-9535-d7b8a06aa792",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "exchangeTests",
+			"item": [
+				{
+					"name": "Provide exchange",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f3bd67ee-bd87-401d-a5f3-5f96220b6d23",
+								"exec": [
+									"let bases=pm.environment.get(\"bases\").split(\",\");\r",
+									"console.log(bases)\r",
+									"let baseFrom = randomBase();\r",
+									"let baseTo= randomBase();\r",
+									"let amount=Math.random() * 10000;\r",
+									"\r",
+									"\r",
+									"function randomBase() {\r",
+									"  let rand = Math.random() * (bases.length);\r",
+									"  return bases[Math.floor(rand)];\r",
+									"}\r",
+									"\r",
+									"pm.globals.set(\"from\",baseFrom);\r",
+									"pm.globals.set(\"to\", baseTo);\r",
+									"pm.globals.set(\"amount\", amount);\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "2347a7e5-4699-4f8a-930d-6a7489a11dfd",
+								"exec": [
+									"let from=pm.globals.get(\"from\");\r",
+									"let to=pm.globals.get(\"to\");\r",
+									"let amount=pm.globals.get(\"amount\");\r",
+									"\r",
+									"if(from!==to){\r",
+									"let map=JSON.parse(pm.globals.get(\"map\"));\r",
+									"pm.test(\"Validate exchange\", function () {\r",
+									"let fromRate=map[from];\r",
+									"let toRate=map[to];\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"return (jsonData.amount*toRate-amount*fromRate)<0.000001;});\r",
+									"}\r",
+									"\r",
+									"else{\r",
+									"    pm.test(\"Status code is 400\", function () {\r",
+									"        pm.response.to.have.status(400);\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\":\"{{from}}\",\r\n    \"to\":\"{{to}}\",\r\n    \"amount\":{{amount}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}exchange",
+							"host": [
+								"{{url}}exchange"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Provide exchange Copy",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "09583b37-fc53-4cd0-8b4d-a4967dcdb35e",
+								"exec": [
+									"let bases=pm.environment.get(\"bases\").split(\",\");\r",
+									"console.log(bases)\r",
+									"let baseFrom = randomBase();\r",
+									"let baseTo= randomBase();\r",
+									"let amount=Math.random() * 10000;\r",
+									"\r",
+									"\r",
+									"function randomBase() {\r",
+									"  let rand = Math.random() * (bases.length);\r",
+									"  return bases[Math.floor(rand)];\r",
+									"}\r",
+									"\r",
+									"pm.globals.set(\"from\",baseFrom);\r",
+									"pm.globals.set(\"to\", baseTo);\r",
+									"pm.globals.set(\"amount\", amount);\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "7a85aaa4-2f36-489b-8fc6-c25da60f628d",
+								"exec": [
+									"let from=pm.globals.get(\"from\");\r",
+									"let to=pm.globals.get(\"to\");\r",
+									"let amount=pm.globals.get(\"amount\");\r",
+									"\r",
+									"if(from!==to){\r",
+									"let map=JSON.parse(pm.globals.get(\"map\"));\r",
+									"pm.test(\"Validate exchange\", function () {\r",
+									"let fromRate=map[from];\r",
+									"let toRate=map[to];\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"return (jsonData.amount*toRate-amount*fromRate)<0.000001;});\r",
+									"}\r",
+									"\r",
+									"else{\r",
+									"    pm.test(\"Status code is 400\", function () {\r",
+									"        pm.response.to.have.status(400);\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\":\"{{from}}\",\r\n    \"to\":\"{{to}}\",\r\n    \"amount\":{{amount}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}exchange",
+							"host": [
+								"{{url}}exchange"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Provide exchange Copy 2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4336b36d-faab-4d0e-b37d-b82e415a7896",
+								"exec": [
+									"let bases=pm.environment.get(\"bases\").split(\",\");\r",
+									"console.log(bases)\r",
+									"let baseFrom = randomBase();\r",
+									"let baseTo= randomBase();\r",
+									"let amount=Math.random() * 10000;\r",
+									"\r",
+									"\r",
+									"function randomBase() {\r",
+									"  let rand = Math.random() * (bases.length);\r",
+									"  return bases[Math.floor(rand)];\r",
+									"}\r",
+									"\r",
+									"pm.globals.set(\"from\",baseFrom);\r",
+									"pm.globals.set(\"to\", baseTo);\r",
+									"pm.globals.set(\"amount\", amount);\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "c901cf9e-8c14-4c55-ac3c-16b9e5a63e53",
+								"exec": [
+									"let from=pm.globals.get(\"from\");\r",
+									"let to=pm.globals.get(\"to\");\r",
+									"let amount=pm.globals.get(\"amount\");\r",
+									"\r",
+									"if(from!==to){\r",
+									"let map=JSON.parse(pm.globals.get(\"map\"));\r",
+									"pm.test(\"Validate exchange\", function () {\r",
+									"let fromRate=map[from];\r",
+									"let toRate=map[to];\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"return (jsonData.amount*toRate-amount*fromRate)<0.000001;});\r",
+									"}\r",
+									"\r",
+									"else{\r",
+									"    pm.test(\"Status code is 400\", function () {\r",
+									"        pm.response.to.have.status(400);\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\":\"{{from}}\",\r\n    \"to\":\"{{to}}\",\r\n    \"amount\":{{amount}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}exchange",
+							"host": [
+								"{{url}}exchange"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Provide exchange Copy 3",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "20d4984f-655e-4b8f-8406-9d103dec84b2",
+								"exec": [
+									"let bases=pm.environment.get(\"bases\").split(\",\");\r",
+									"console.log(bases)\r",
+									"let baseFrom = randomBase();\r",
+									"let baseTo= randomBase();\r",
+									"let amount=Math.random() * 10000;\r",
+									"\r",
+									"\r",
+									"function randomBase() {\r",
+									"  let rand = Math.random() * (bases.length);\r",
+									"  return bases[Math.floor(rand)];\r",
+									"}\r",
+									"\r",
+									"pm.globals.set(\"from\",baseFrom);\r",
+									"pm.globals.set(\"to\", baseTo);\r",
+									"pm.globals.set(\"amount\", amount);\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "4eac0681-af96-4ea6-a598-8f1838e09eac",
+								"exec": [
+									"let from=pm.globals.get(\"from\");\r",
+									"let to=pm.globals.get(\"to\");\r",
+									"let amount=pm.globals.get(\"amount\");\r",
+									"\r",
+									"if(from!==to){\r",
+									"let map=JSON.parse(pm.globals.get(\"map\"));\r",
+									"pm.test(\"Validate exchange\", function () {\r",
+									"let fromRate=map[from];\r",
+									"let toRate=map[to];\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"return (jsonData.amount*toRate-amount*fromRate)<0.000001;});\r",
+									"}\r",
+									"\r",
+									"else{\r",
+									"    pm.test(\"Status code is 400\", function () {\r",
+									"        pm.response.to.have.status(400);\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\":\"{{from}}\",\r\n    \"to\":\"{{to}}\",\r\n    \"amount\":{{amount}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}exchange",
+							"host": [
+								"{{url}}exchange"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Provide exchange Copy 4",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2b6d7bc9-8511-4b67-838b-c8ebf593142b",
+								"exec": [
+									"let bases=pm.environment.get(\"bases\").split(\",\");\r",
+									"console.log(bases)\r",
+									"let baseFrom = randomBase();\r",
+									"let baseTo= randomBase();\r",
+									"let amount=Math.random() * 10000;\r",
+									"\r",
+									"\r",
+									"function randomBase() {\r",
+									"  let rand = Math.random() * (bases.length);\r",
+									"  return bases[Math.floor(rand)];\r",
+									"}\r",
+									"\r",
+									"pm.globals.set(\"from\",baseFrom);\r",
+									"pm.globals.set(\"to\", baseTo);\r",
+									"pm.globals.set(\"amount\", amount);\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "76f6cce7-c5e5-4e7b-98a9-194c90ccfd64",
+								"exec": [
+									"let from=pm.globals.get(\"from\");\r",
+									"let to=pm.globals.get(\"to\");\r",
+									"let amount=pm.globals.get(\"amount\");\r",
+									"\r",
+									"if(from!==to){\r",
+									"let map=JSON.parse(pm.globals.get(\"map\"));\r",
+									"pm.test(\"Validate exchange\", function () {\r",
+									"let fromRate=map[from];\r",
+									"let toRate=map[to];\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"return (jsonData.amount*toRate-amount*fromRate)<0.000001;});\r",
+									"}\r",
+									"\r",
+									"else{\r",
+									"    pm.test(\"Status code is 400\", function () {\r",
+									"        pm.response.to.have.status(400);\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\":\"{{from}}\",\r\n    \"to\":\"{{to}}\",\r\n    \"amount\":{{amount}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}exchange",
+							"host": [
+								"{{url}}exchange"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Provide exchange Copy 5",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e49712dd-dd2b-441c-8962-106b5d8ce773",
+								"exec": [
+									"let bases=pm.environment.get(\"bases\").split(\",\");\r",
+									"console.log(bases)\r",
+									"let baseFrom = randomBase();\r",
+									"let baseTo= randomBase();\r",
+									"let amount=Math.random() * 10000;\r",
+									"\r",
+									"\r",
+									"function randomBase() {\r",
+									"  let rand = Math.random() * (bases.length);\r",
+									"  return bases[Math.floor(rand)];\r",
+									"}\r",
+									"\r",
+									"pm.globals.set(\"from\",baseFrom);\r",
+									"pm.globals.set(\"to\", baseTo);\r",
+									"pm.globals.set(\"amount\", amount);\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "16710207-ca24-4c1e-b97f-ff3286ec4b07",
+								"exec": [
+									"let from=pm.globals.get(\"from\");\r",
+									"let to=pm.globals.get(\"to\");\r",
+									"let amount=pm.globals.get(\"amount\");\r",
+									"\r",
+									"if(from!==to){\r",
+									"let map=JSON.parse(pm.globals.get(\"map\"));\r",
+									"pm.test(\"Validate exchange\", function () {\r",
+									"let fromRate=map[from];\r",
+									"let toRate=map[to];\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"return (jsonData.amount*toRate-amount*fromRate)<0.000001;});\r",
+									"}\r",
+									"\r",
+									"else{\r",
+									"    pm.test(\"Status code is 400\", function () {\r",
+									"        pm.response.to.have.status(400);\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\":\"{{from}}\",\r\n    \"to\":\"{{to}}\",\r\n    \"amount\":{{amount}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}exchange",
+							"host": [
+								"{{url}}exchange"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Provide exchange Copy 6",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "aa312431-3be3-4382-913b-c307ccd12ac6",
+								"exec": [
+									"let bases=pm.environment.get(\"bases\").split(\",\");\r",
+									"console.log(bases)\r",
+									"let baseFrom = randomBase();\r",
+									"let baseTo= randomBase();\r",
+									"let amount=Math.random() * 10000;\r",
+									"\r",
+									"\r",
+									"function randomBase() {\r",
+									"  let rand = Math.random() * (bases.length);\r",
+									"  return bases[Math.floor(rand)];\r",
+									"}\r",
+									"\r",
+									"pm.globals.set(\"from\",baseFrom);\r",
+									"pm.globals.set(\"to\", baseTo);\r",
+									"pm.globals.set(\"amount\", amount);\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "a4916b41-3d06-46c3-a758-10ccd3c43dc1",
+								"exec": [
+									"let from=pm.globals.get(\"from\");\r",
+									"let to=pm.globals.get(\"to\");\r",
+									"let amount=pm.globals.get(\"amount\");\r",
+									"\r",
+									"if(from!==to){\r",
+									"let map=JSON.parse(pm.globals.get(\"map\"));\r",
+									"pm.test(\"Validate exchange\", function () {\r",
+									"let fromRate=map[from];\r",
+									"let toRate=map[to];\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"return (jsonData.amount*toRate-amount*fromRate)<0.000001;});\r",
+									"}\r",
+									"\r",
+									"else{\r",
+									"    pm.test(\"Status code is 400\", function () {\r",
+									"        pm.response.to.have.status(400);\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\":\"{{from}}\",\r\n    \"to\":\"{{to}}\",\r\n    \"amount\":{{amount}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}exchange",
+							"host": [
+								"{{url}}exchange"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Provide exchange Copy 7",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "3be68137-6f74-496a-90b2-a7ee3083da04",
+								"exec": [
+									"let bases=pm.environment.get(\"bases\").split(\",\");\r",
+									"console.log(bases)\r",
+									"let baseFrom = randomBase();\r",
+									"let baseTo= randomBase();\r",
+									"let amount=Math.random() * 10000;\r",
+									"\r",
+									"\r",
+									"function randomBase() {\r",
+									"  let rand = Math.random() * (bases.length);\r",
+									"  return bases[Math.floor(rand)];\r",
+									"}\r",
+									"\r",
+									"pm.globals.set(\"from\",baseFrom);\r",
+									"pm.globals.set(\"to\", baseTo);\r",
+									"pm.globals.set(\"amount\", amount);\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "637c87ce-efa0-4a93-9f5f-692e4d4c1354",
+								"exec": [
+									"let from=pm.globals.get(\"from\");\r",
+									"let to=pm.globals.get(\"to\");\r",
+									"let amount=pm.globals.get(\"amount\");\r",
+									"\r",
+									"if(from!==to){\r",
+									"let map=JSON.parse(pm.globals.get(\"map\"));\r",
+									"pm.test(\"Validate exchange\", function () {\r",
+									"let fromRate=map[from];\r",
+									"let toRate=map[to];\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"return (jsonData.amount*toRate-amount*fromRate)<0.000001;});\r",
+									"}\r",
+									"\r",
+									"else{\r",
+									"    pm.test(\"Status code is 400\", function () {\r",
+									"        pm.response.to.have.status(400);\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\":\"{{from}}\",\r\n    \"to\":\"{{to}}\",\r\n    \"amount\":{{amount}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}exchange",
+							"host": [
+								"{{url}}exchange"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Provide exchange Copy 8",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e481f389-618e-4c31-bf5d-130ebaab3766",
+								"exec": [
+									"let bases=pm.environment.get(\"bases\").split(\",\");\r",
+									"console.log(bases)\r",
+									"let baseFrom = randomBase();\r",
+									"let baseTo= randomBase();\r",
+									"let amount=Math.random() * 10000;\r",
+									"\r",
+									"\r",
+									"function randomBase() {\r",
+									"  let rand = Math.random() * (bases.length);\r",
+									"  return bases[Math.floor(rand)];\r",
+									"}\r",
+									"\r",
+									"pm.globals.set(\"from\",baseFrom);\r",
+									"pm.globals.set(\"to\", baseTo);\r",
+									"pm.globals.set(\"amount\", amount);\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "b210740c-4ed9-4a5b-8bdc-64625f5b57f9",
+								"exec": [
+									"let from=pm.globals.get(\"from\");\r",
+									"let to=pm.globals.get(\"to\");\r",
+									"let amount=pm.globals.get(\"amount\");\r",
+									"\r",
+									"if(from!==to){\r",
+									"let map=JSON.parse(pm.globals.get(\"map\"));\r",
+									"pm.test(\"Validate exchange\", function () {\r",
+									"let fromRate=map[from];\r",
+									"let toRate=map[to];\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"return (jsonData.amount*toRate-amount*fromRate)<0.000001;});\r",
+									"}\r",
+									"\r",
+									"else{\r",
+									"    pm.test(\"Status code is 400\", function () {\r",
+									"        pm.response.to.have.status(400);\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\":\"{{from}}\",\r\n    \"to\":\"{{to}}\",\r\n    \"amount\":{{amount}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}exchange",
+							"host": [
+								"{{url}}exchange"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Provide exchange Copy 9",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "354f8d13-4935-44ef-8fbd-8df6450a010d",
+								"exec": [
+									"let bases=pm.environment.get(\"bases\").split(\",\");\r",
+									"console.log(bases)\r",
+									"let baseFrom = randomBase();\r",
+									"let baseTo= randomBase();\r",
+									"let amount=Math.random() * 10000;\r",
+									"\r",
+									"\r",
+									"function randomBase() {\r",
+									"  let rand = Math.random() * (bases.length);\r",
+									"  return bases[Math.floor(rand)];\r",
+									"}\r",
+									"\r",
+									"pm.globals.set(\"from\",baseFrom);\r",
+									"pm.globals.set(\"to\", baseTo);\r",
+									"pm.globals.set(\"amount\", amount);\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "3a74805f-5f59-4fc4-8148-c79a71e9fe8f",
+								"exec": [
+									"let from=pm.globals.get(\"from\");\r",
+									"let to=pm.globals.get(\"to\");\r",
+									"let amount=pm.globals.get(\"amount\");\r",
+									"\r",
+									"if(from!==to){\r",
+									"let map=JSON.parse(pm.globals.get(\"map\"));\r",
+									"pm.test(\"Validate exchange\", function () {\r",
+									"let fromRate=map[from];\r",
+									"let toRate=map[to];\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"return (jsonData.amount*toRate-amount*fromRate)<0.000001;});\r",
+									"}\r",
+									"\r",
+									"else{\r",
+									"    pm.test(\"Status code is 400\", function () {\r",
+									"        pm.response.to.have.status(400);\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\":\"{{from}}\",\r\n    \"to\":\"{{to}}\",\r\n    \"amount\":{{amount}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}exchange",
+							"host": [
+								"{{url}}exchange"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Provide exchange Copy 10",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "71253f7a-394e-4f45-a467-4aecb59e2cf4",
+								"exec": [
+									"let bases=pm.environment.get(\"bases\").split(\",\");\r",
+									"console.log(bases)\r",
+									"let baseFrom = randomBase();\r",
+									"let baseTo= randomBase();\r",
+									"let amount=Math.random() * 10000;\r",
+									"\r",
+									"\r",
+									"function randomBase() {\r",
+									"  let rand = Math.random() * (bases.length);\r",
+									"  return bases[Math.floor(rand)];\r",
+									"}\r",
+									"\r",
+									"pm.globals.set(\"from\",baseFrom);\r",
+									"pm.globals.set(\"to\", baseTo);\r",
+									"pm.globals.set(\"amount\", amount);\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "cc029c1c-33d0-4cea-a6f4-a8dc2d3ec09f",
+								"exec": [
+									"let from=pm.globals.get(\"from\");\r",
+									"let to=pm.globals.get(\"to\");\r",
+									"let amount=pm.globals.get(\"amount\");\r",
+									"\r",
+									"if(from!==to){\r",
+									"let map=JSON.parse(pm.globals.get(\"map\"));\r",
+									"pm.test(\"Validate exchange\", function () {\r",
+									"let fromRate=map[from];\r",
+									"let toRate=map[to];\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"return (jsonData.amount*toRate-amount*fromRate)<0.000001;});\r",
+									"}\r",
+									"\r",
+									"else{\r",
+									"    pm.test(\"Status code is 400\", function () {\r",
+									"        pm.response.to.have.status(400);\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\":\"{{from}}\",\r\n    \"to\":\"{{to}}\",\r\n    \"amount\":{{amount}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}exchange",
+							"host": [
+								"{{url}}exchange"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "eba8f774-0822-454f-b956-5924cc3888b0",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "3e6be073-79a0-45b1-8905-9042b687a5df",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
